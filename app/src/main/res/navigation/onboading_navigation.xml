@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboading_navigation.xml"
+    app:startDestination="@id/firstRegistrationFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.adstek.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen">
+
+        <action
+            android:id="@+id/navigateToFirstRegistration"
+            app:destination="@id/firstRegistrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/firstRegistrationFragment"
+        android:name="com.adstek.FirstRegistrationFragment"
+        android:label="fragment_first_registration"
+        tools:layout="@layout/fragment_first_registration" >
+        <action
+            android:id="@+id/navigateToSecondFragment"
+            app:destination="@id/secondRegistrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondRegistrationFragment"
+        android:name="com.adstek.SecondRegistrationFragment"
+        android:label="fragment_second_registration"
+        tools:layout="@layout/fragment_second_registration" />
+
+</navigation>

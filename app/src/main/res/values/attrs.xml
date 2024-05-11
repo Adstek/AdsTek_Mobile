@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="AdsTextField">
+    <attr name="hintText" format="string"/>
+    <attr name="titleTextInput" format="string"/>
+    <attr name="buttonText" format="string"/>
+    <attr name="leadingIcon" format="reference"/>
+  </declare-styleable>
+</resources>
+

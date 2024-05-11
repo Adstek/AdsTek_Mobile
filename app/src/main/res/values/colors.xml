@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <color name="divider">#40B6B6B6</color>
+    <color name="color_green">#098f5a</color>
+    <color name="hint_color">#C6C6C6</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="yellow">#FFC107</color>
+
+    <color name="textfield_border">#D5DADF</color>
+    <color name="link">#2196F3</color>
+</resources>
