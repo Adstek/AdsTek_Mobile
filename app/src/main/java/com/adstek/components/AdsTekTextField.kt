@@ -30,11 +30,11 @@ class AdsTextField @JvmOverloads constructor(
         titleTextField = findViewById(R.id.textFieldTitle)
 
         // Apply custom attributes
-        context.obtainStyledAttributes(attrs, R.styleable.AdsTextField).apply {
+        context.obtainStyledAttributes(attrs, R.styleable.AdsText).apply {
             try {
-                val placeholderText = getString(R.styleable.AdsTextField_hintText)
-                val titleTextFieldInput = getString(R.styleable.AdsTextField_titleTextInput)
-                val startIconDrawable = getResourceId(R.styleable.AdsTextField_leadingIcon, 0)
+                val placeholderText = getString(R.styleable.AdsText_hintText)
+                val titleTextFieldInput = getString(R.styleable.AdsText_titleTextInput)
+                val startIconDrawable = getResourceId(R.styleable.AdsText_leadingIcon, 0)
 
                 // Set hint
                 textInputLayout.placeholderText = placeholderText

@@ -24,9 +24,9 @@ class AdsTekButton @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.button_layout, this, true)
         button = findViewById(R.id.btn)
         // Apply custom attributes
-        context.obtainStyledAttributes(attrs, R.styleable.AdsTextField).apply {
+        context.obtainStyledAttributes(attrs, R.styleable.AdsText).apply {
             try {
-                val buttonText = getString(R.styleable.AdsTextField_buttonText)
+                val buttonText = getString(R.styleable.AdsText_buttonText)
 
                 // Set hint
                 button.text = buttonText

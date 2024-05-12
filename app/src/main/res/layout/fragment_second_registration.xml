@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".drivers.onboarding.FirstRegistrationFragment"
+    android:padding="12dp"
     android:background="@color/white">
 
 
@@ -45,15 +46,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
+            <com.adstek.components.AdsTekDropDown
+                android:id="@+id/dropDownIDType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:hintText="@string/select_id_type"
+                app:titleTextInput= "@string/id_type"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
             <TextView
                 android:id="@+id/uploadIDText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/upload_id"
                 android:textColor="@color/black"
+                android:layout_marginTop="24dp"
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 app:fontFamily="@font/lexend"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dropDownIDType"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <androidx.cardview.widget.CardView

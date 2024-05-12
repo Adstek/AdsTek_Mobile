@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.adstek.databinding.FragmentFirstRegistrationBinding
 import com.adstek.util.navigateTo
+import com.adstek.util.popBackStackOrFinish
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,7 +31,9 @@ class FirstRegistrationFragment : Fragment() {
     private fun onClickActions() = with(binding){
         continueBtn.onClick{
             navigateTo(FirstRegistrationFragmentDirections.navigateToSecondFragment())
-
+        }
+        back.btnBack.setOnClickListener {
+            popBackStackOrFinish()
         }
     }
 }

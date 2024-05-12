@@ -9,10 +9,28 @@
     android:padding="12dp"
     android:background="@color/white">
 
+    <include
+        android:id="@+id/back"
+        layout="@layout/common_layout_back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/driver_registration"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        app:layout_constraintBottom_toBottomOf="@id/back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back"/>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -21,16 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/driver_registration"
-                android:textColor="@color/black"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+
 
             <com.adstek.components.AdsTextField
                 android:id="@+id/firstNameTextField"
@@ -56,6 +65,19 @@
                 app:layout_constraintTop_toBottomOf="@id/firstNameTextField"
                 app:titleTextInput = "Last Name" />
 
+
+            <com.adstek.components.AdsTextField
+                android:id="@+id/genderNameTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="50dp"
+                app:hintText="@string/enter_your_last_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/firstNameTextField"
+                app:titleTextInput = "Last Name" />
+
             <com.adstek.components.AdsTextField
                 android:id="@+id/emailTextField"
                 android:layout_width="match_parent"
@@ -68,6 +90,30 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lastNameTextField"/>
 
+            <com.adstek.components.AdsTekDropDown
+                android:id="@+id/dropDownTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="50dp"
+                app:hintText="@string/select_gender"
+                app:titleTextInput= "@string/gender"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/emailTextField"/>
+
+            <com.adstek.components.AdsTekDropDown
+                android:id="@+id/dropDownNationalityTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="50dp"
+                app:hintText="@string/select_nation"
+                app:titleTextInput= "@string/nationality"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/dropDownTextField"/>
+
             <TextView
                 android:id="@+id/textFieldTitle"
                 android:layout_width="wrap_content"
@@ -76,7 +122,7 @@
                 android:fontFamily="@font/lexend_bold"
                 android:text ="@string/profile_picture"
                 style="@style/TextAppearance.MaterialComponents.Body1"
-                app:layout_constraintTop_toBottomOf="@id/emailTextField"
+                app:layout_constraintTop_toBottomOf="@id/dropDownNationalityTextField"
                 app:layout_constraintStart_toStartOf="@id/emailTextField"/>
 
             <androidx.cardview.widget.CardView
