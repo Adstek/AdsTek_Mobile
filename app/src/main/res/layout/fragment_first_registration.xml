@@ -9,87 +9,154 @@
     android:padding="12dp"
     android:background="@color/white">
 
-    <com.adstek.components.AdsTextField
-        android:id="@+id/firstNameTextField"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:hintText="@string/enter_your_first_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:leadingIcon="@drawable/outline_person_24"
-        app:titleTextInput = "First Name" />
-
-    <com.adstek.components.AdsTextField
-        android:id="@+id/lastNameTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        app:hintText="@string/enter_your_last_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/firstNameTextField"
-        app:leadingIcon="@drawable/outline_person_24"/>
-
-    <com.adstek.components.AdsTextField
-        android:id="@+id/emailTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        app:hintText="@string/enter_your_last_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lastNameTextField"
-        app:leadingIcon="@drawable/outline_email_24"/>
-
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/uploadImage"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        app:cardCornerRadius="10dp"
-        app:elevation="12dp"
-        android:elevation="12dp"
-        app:cardUseCompatPadding="true"
-        android:layout_marginTop="24dp"
-        android:layout_marginHorizontal="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailTextField">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Click to upload"
+                android:text="@string/driver_registration"
+                android:textColor="@color/black"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <com.adstek.components.AdsTextField
+                android:id="@+id/firstNameTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="34dp"
+                android:layout_marginHorizontal="50dp"
+                app:hintText="@string/enter_your_first_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:textColor="@color/link"
-                android:gravity="center"
-                android:drawablePadding="12dp"
-                android:drawableStart="@drawable/baseline_upload_file_24"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                app:titleTextInput = "First Name" />
 
+            <com.adstek.components.AdsTextField
+                android:id="@+id/lastNameTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="50dp"
+                app:hintText="@string/enter_your_last_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/firstNameTextField"
+                app:titleTextInput = "Last Name" />
+
+            <com.adstek.components.AdsTextField
+                android:id="@+id/emailTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="50dp"
+                app:hintText="@string/enter_your_last_name"
+                app:titleTextInput = "@string/email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lastNameTextField"/>
+
+            <TextView
+                android:id="@+id/textFieldTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lexend_bold"
+                android:text ="@string/profile_picture"
+                style="@style/TextAppearance.MaterialComponents.Body1"
+                app:layout_constraintTop_toBottomOf="@id/emailTextField"
+                app:layout_constraintStart_toStartOf="@id/emailTextField"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/uploadImage"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:elevation="12dp"
+                android:layout_marginHorizontal="120dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/dashes_lines"
+                app:cardCornerRadius="10dp"
+                app:elevation="12dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textFieldTitle">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dashes_lines"
+                    android:padding="24dp">
+
+                    <ImageView
+                        android:id="@+id/tvUploadIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/outline_cloud_upload_24"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvUploadText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/upload_profile_photo"
+                        android:textColor="@color/link"
+                        android:gravity="center"
+                        android:drawablePadding="12dp"
+                        style="@style/TextAppearance.MaterialComponents.Body1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:fontFamily="@font/lexend"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tvTypeUpload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/image_types"
+                        android:textColor="@color/black_tint"
+                        android:gravity="center"
+                        android:drawablePadding="12dp"
+                        app:layout_constraintTop_toBottomOf="@id/tvUploadText"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <com.adstek.components.AdsTekButton
+                android:id="@+id/continueBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:layout_marginHorizontal="50dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/uploadImage"
+                app:buttonText = "@string/btn_continue" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
-
-
-    <com.adstek.components.AdsTekButton
-        android:id="@+id/continueBtn"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:buttonText = "Continue"
-        app:layout_constraintTop_toBottomOf="@id/uploadImage" />
-
+    </ScrollView>
 
 
 

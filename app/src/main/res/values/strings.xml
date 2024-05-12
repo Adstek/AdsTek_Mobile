@@ -10,4 +10,12 @@
     <string name="enter_password">Enter your password</string>
     <string name="enter_confirm_password">Confirm your password</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="driver_registration">Driver Registration</string>
+    <string name="email">Email</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="btn_continue">Continue</string>
+    <string name="image_types">JPG, PNG</string>
+    <string name="upload_profile_photo">Upload profile photo</string>
+    <string name="upload_id">Upload ID</string>
+    <string name="upload_id_card">Upload ID Card</string>
 </resources>

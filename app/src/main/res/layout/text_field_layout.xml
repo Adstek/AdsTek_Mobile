@@ -14,6 +14,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:fontFamily="@font/lexend"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.MaterialComponents.Body1"
         tools:text ="Email"/>
 
 
@@ -24,11 +27,12 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:theme="@style/Widget.App.TextInputLayout"
         android:layout_marginTop="8dp"
-        app:boxStrokeWidth="0.5dp"
-        app:boxStrokeColor="@color/textfield_border"
-        app:startIconDrawable="@drawable/outline_person_24"
+        app:boxStrokeWidth="0dp"
+        app:boxBackgroundColor="@color/textfield_border"
         app:expandedHintEnabled="false"
         app:placeholderText="@string/app_name"
+        app:placeholderTextColor="@color/black_tint"
+        app:placeholderTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textFieldTitle">

@@ -1,12 +1,14 @@
 package com.adstek.components
 
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import com.adstek.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -37,6 +39,17 @@ class AdsTextField @JvmOverloads constructor(
                 // Set hint
                 textInputLayout.placeholderText = placeholderText
                 titleTextField.text = titleTextFieldInput
+
+
+                // Add focus change listener to TextInputEditText
+                textInputEditText.setOnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        textInputLayout.boxBackgroundColor = Color.parseColor("#FFFFFF")
+                    } else {
+                        textInputLayout.boxBackgroundColor = Color.parseColor("#EFF1F3")
+                    }
+                }
+
 
                 // Set start icon
                 if (startIconDrawable != 0) {
