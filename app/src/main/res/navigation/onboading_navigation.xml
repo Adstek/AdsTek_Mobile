@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/onboading_navigation.xml"
-    app:startDestination="@id/firstRegistrationFragment">
+    app:startDestination="@id/signInFragment">
 
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -17,17 +17,28 @@
     </fragment>
     <fragment
         android:id="@+id/firstRegistrationFragment"
-        android:name="com.adstek.FirstRegistrationFragment"
+        android:name="com.adstek.drivers.onboarding.FirstRegistrationFragment"
         android:label="fragment_first_registration"
         tools:layout="@layout/fragment_first_registration" >
         <action
             android:id="@+id/navigateToSecondFragment"
             app:destination="@id/secondRegistrationFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/secondRegistrationFragment"
-        android:name="com.adstek.SecondRegistrationFragment"
+        android:name="com.adstek.drivers.onboarding.SecondRegistrationFragment"
         android:label="fragment_second_registration"
         tools:layout="@layout/fragment_second_registration" />
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.adstek.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/navigateToSignIn"
+            app:destination="@id/firstRegistrationFragment" />
+    </fragment>
 
 </navigation>

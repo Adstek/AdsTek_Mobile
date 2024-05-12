@@ -11,6 +11,7 @@
     <string name="enter_confirm_password">Confirm your password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="driver_registration">Driver Registration</string>
+    <string name="sign_in">Sign In</string>
     <string name="email">Email</string>
     <string name="profile_picture">Profile Picture</string>
     <string name="btn_continue">Continue</string>
