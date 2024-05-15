@@ -32,7 +32,6 @@
         app:boxCornerRadiusTopEnd="32dp"
         app:boxCornerRadiusTopStart="32dp"
         android:layout_marginTop="16dp"
-        app:placeholderText="@string/app_name"
         app:placeholderTextColor="@color/black_tint"
         app:layout_constraintTop_toBottomOf="@id/dropdown_txTitle">
 

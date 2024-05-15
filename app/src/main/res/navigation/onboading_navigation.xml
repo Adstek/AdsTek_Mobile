@@ -23,13 +23,20 @@
         <action
             android:id="@+id/navigateToSecondFragment"
             app:destination="@id/secondRegistrationFragment" />
+        <action
+            android:id="@+id/navigateRegisterToVerifyEmail"
+            app:destination="@id/verifyEmailFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/secondRegistrationFragment"
         android:name="com.adstek.drivers.onboarding.SecondRegistrationFragment"
         android:label="fragment_second_registration"
-        tools:layout="@layout/fragment_second_registration" />
+        tools:layout="@layout/fragment_second_registration" >
+        <action
+            android:id="@+id/navigateToVerifyEmail"
+            app:destination="@id/verifyEmailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/signInFragment"
@@ -39,6 +46,51 @@
         <action
             android:id="@+id/navigateToSignIn"
             app:destination="@id/firstRegistrationFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_emailFragment"
+            app:destination="@id/verificationTypeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/verificationTypeFragment"
+        android:name="com.adstek.drivers.onboarding.VerificationOptionFragment"
+        android:label="fragment_email"
+        tools:layout="@layout/fragment_verification_option" >
+
+        <action
+            android:id="@+id/navigateToVerifyPhone"
+            app:destination="@id/verifyPhoneFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/verifyEmailFragment"
+        android:name="com.adstek.drivers.onboarding.EnterEmailFragment"
+        android:label="fragment_verify_email"
+        tools:layout="@layout/fragment_enter_email" >
+
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue="@null"
+            app:nullable="true" />
+
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue="@null"
+            app:nullable="true"     />
+        <action
+            android:id="@+id/navigateToHome"
+            app:destination="@id/homeFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/verifyPhoneFragment"
+        android:name="com.adstek.drivers.onboarding.EnterPhoneFragment"
+        android:label="VerifyPhoneFragment" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.adstek.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 
 </navigation>

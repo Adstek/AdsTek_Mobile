@@ -42,9 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
-            android:inputType="phone"
-            android:textColor="#757575"
-            android:maxLength="10" />
+            android:textColor="#757575" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

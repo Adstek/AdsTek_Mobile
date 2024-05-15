@@ -69,4 +69,13 @@ class AdsTextField @JvmOverloads constructor(
     fun getTextInputEditText(): TextInputEditText {
         return textInputEditText
     }
+
+    fun getFieldText(): String {
+        return textInputEditText.text.toString()
+    }
+
+
+    fun setFieldText( text: String) {
+        return textInputEditText.setText(text)
+    }
 }

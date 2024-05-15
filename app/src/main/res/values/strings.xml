@@ -25,4 +25,14 @@
     <string name="upload_profile_photo">Upload profile photo</string>
     <string name="upload_id">Upload ID</string>
     <string name="upload_id_card">Upload ID Card</string>
+    <string name="verification">Get verification code to sign up</string>
+    <string name="verification_desc">How would you like to receive a verification code</string>
+    <string name="phone_number">Phone number</string>
+
+    <string name="resend_otp_in">"Resend code in %d second(s)"</string>
+    <string name="resend_otp">"Resend code"</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_use">Terms of Use</string>
+    <string name="enter_the_code">Enter the code</string>
+
 </resources>

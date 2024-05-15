@@ -72,7 +72,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/uploadIDCard"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:elevation="12dp"
                 android:layout_marginHorizontal="120dp"
                 android:layout_marginTop="24dp"
@@ -88,7 +88,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/dashes_lines"
-                    android:padding="24dp">
+                    android:padding="14dp">
+
+
+                    <ImageView
+                        android:id="@+id/idCardImgView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
 
                     <ImageView
                         android:id="@+id/tvUploadIcon"
@@ -146,7 +158,7 @@
                 app:titleTextInput = "ID Number" />
 
             <com.adstek.components.AdsTextField
-                android:id="@+id/firstNameTextField"
+                android:id="@+id/idNumberTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -158,14 +170,14 @@
                 app:titleTextInput = "Number Plate" />
 
             <com.adstek.components.AdsTextField
-                android:id="@+id/lastNameTextField"
+                android:id="@+id/phoneTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 app:hintText="@string/enter_number"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/firstNameTextField"
+                app:layout_constraintTop_toBottomOf="@id/idNumberTextField"
                 app:leadingIcon="@drawable/baseline_numbers_24"
                 app:titleTextInput = "Phone Number" />
 
@@ -177,7 +189,7 @@
                 app:hintText="@string/enter_password"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lastNameTextField"
+                app:layout_constraintTop_toBottomOf="@id/phoneTextField"
                 app:leadingIcon="@drawable/outline_email_24"
                 app:titleTextInput = "Password"/>
 

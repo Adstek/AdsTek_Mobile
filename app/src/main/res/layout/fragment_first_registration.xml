@@ -25,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="@id/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/back"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -50,24 +50,11 @@
                 app:hintText="@string/enter_your_first_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                app:layout_constraintTop_toTopOf="parent"
                 app:titleTextInput = "First Name" />
 
             <com.adstek.components.AdsTextField
                 android:id="@+id/lastNameTextField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="50dp"
-                app:hintText="@string/enter_your_last_name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/firstNameTextField"
-                app:titleTextInput = "Last Name" />
-
-
-            <com.adstek.components.AdsTextField
-                android:id="@+id/genderNameTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -91,7 +78,7 @@
                 app:layout_constraintTop_toBottomOf="@id/lastNameTextField"/>
 
             <com.adstek.components.AdsTekDropDown
-                android:id="@+id/dropDownTextField"
+                android:id="@+id/dropDownGenderTextField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -112,7 +99,7 @@
                 app:titleTextInput= "@string/nationality"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dropDownTextField"/>
+                app:layout_constraintTop_toBottomOf="@id/dropDownGenderTextField"/>
 
             <TextView
                 android:id="@+id/textFieldTitle"
@@ -128,7 +115,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/uploadImage"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:elevation="12dp"
                 android:layout_marginHorizontal="120dp"
                 android:layout_marginTop="24dp"
@@ -145,6 +132,16 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/dashes_lines"
                     android:padding="24dp">
+
+                    <ImageView
+                        android:id="@+id/profileImgView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/tvUploadIcon"

@@ -42,4 +42,16 @@ class AdsTekDropDown @JvmOverloads constructor(
         val adapter = ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, items)
         autoCompleteTextView.setAdapter(adapter)
     }
+
+    fun getSelectedValue(): String? {
+        return autoCompleteTextView.text?.toString()
+    }
+
+    fun setSelectedValue(value: String) {
+        autoCompleteTextView.setText(value, false)
+    }
+
+    fun getDropDownAutoText(): AutoCompleteTextView {
+      return  autoCompleteTextView
+    }
 }

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources >
     <!-- Base application theme. -->
     <style name="Base.Theme.AdsTek" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -6,7 +6,8 @@
         <item name="colorPrimary">@color/yellow</item>
         <item name="colorPrimaryVariant">@color/yellow</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="android:fontFamily">@font/lexend</item>
+        <item name="fontFamily">@font/lexend</item>
+        <item name="font">@font/lexend</item>
         <item name="actionMenuTextColor">@color/white</item>
     </style>
 
@@ -36,6 +37,13 @@
         <item name="android:stateListAnimator">@null</item>
         <!--        <item name="android:textFontWeight" tools:targetApi="28">500</item>-->
     </style>
+
+        <style name="loadingDialog" parent="@android:style/Theme.DeviceDefault.Dialog">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:backgroundDimAmount">0.9</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+
+        </style>
 
 
 

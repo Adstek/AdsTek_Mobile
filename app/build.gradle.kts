@@ -110,6 +110,11 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+    implementation("com.squareup.okhttp3:okhttp")
+
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+
 
     //Navigation
     implementation ("androidx.navigation:navigation-fragment-ktx:2.5.3")
@@ -117,6 +122,19 @@ dependencies {
 
     //Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    kapt ("android.arch.lifecycle:compiler:1.1.1")
+
+
+    implementation("com.github.aabhasr1:OtpView:1.1.2")
+
+    implementation ("com.github.dhaval2404:imagepicker:2.1")
+
+
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.14.2")
+    kapt ("com.github.bumptech.glide:compiler:4.14.2")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
 
 }
 
