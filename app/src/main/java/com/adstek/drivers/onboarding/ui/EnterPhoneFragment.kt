@@ -1,38 +1,37 @@
-package com.adstek
+package com.adstek.drivers.onboarding.ui
 
 import android.os.Bundle
-import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.adstek.databinding.FragmentSplashScreenBinding
+import com.adstek.databinding.FragmentEnterPhoneBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashScreenFragment : Fragment() {
-    private lateinit var binding: FragmentSplashScreenBinding
+class EnterPhoneFragment : Fragment() {
 
-    // Splash screen timer
-    private val splashTimeOut: Long = 4000 // 4 seconds
-
-
+    private  lateinit var binding: FragmentEnterPhoneBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSplashScreenBinding.inflate(inflater)
+        binding = FragmentEnterPhoneBinding.inflate(inflater)
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Handler().postDelayed({
-            // Start your MainActivity
-
-        }, splashTimeOut)
+        onClicks()
     }
+
+    private fun onClicks() = with(binding){
+//        back.setOnClickListener {
+//            popBackStackOrFinish()
+//        }
+    }
+
 
 }

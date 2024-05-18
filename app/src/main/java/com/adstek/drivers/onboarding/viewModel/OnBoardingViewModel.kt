@@ -7,12 +7,12 @@ import com.adstek.data.remote.models.LoginRequest
 import com.adstek.data.remote.models.VerifyEmail
 import com.adstek.data.remote.models.auth.RegisterUserModel
 import com.adstek.repository.AuthRepository
-import com.adstek.util.BaseViewModel
+import com.adstek.extensions.BaseViewModel
 import com.adstek.util.Constants
-import com.adstek.util.network.DataState
-import com.adstek.util.Event
+import com.adstek.data.remote.DataState
+import com.adstek.data.remote.models.Event
 import com.adstek.util.SharedPref
-import com.adstek.util.emitFlowResultsToEvent
+import com.adstek.extensions.emitFlowResultsToEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

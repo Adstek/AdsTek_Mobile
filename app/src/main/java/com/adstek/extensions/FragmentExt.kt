@@ -1,4 +1,4 @@
-package com.adstek.util
+package com.adstek.extensions
 
 import android.content.Context
 import android.content.Intent
@@ -8,11 +8,12 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
-import com.adstek.util.network.DataState
+import com.adstek.data.remote.models.Event
+import com.adstek.components.LoadingDialog
+import com.adstek.data.remote.DataState
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import timber.log.Timber
@@ -55,7 +56,7 @@ fun Fragment.selectImageAndReturnUri(
 }
 
 fun Fragment.toast(msg: String?) {
-    Toast.makeText(requireActivity(), "$msg", Toast.LENGTH_SHORT).show()
+    Toast.makeText(requireActivity(), "$msg", Toast.LENGTH_LONG).show()
 }
 
 fun Fragment.loadFromFile(context: Context, imageView: ImageView, filePath: String,) {

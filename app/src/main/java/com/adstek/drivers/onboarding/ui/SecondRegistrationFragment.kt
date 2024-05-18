@@ -1,28 +1,27 @@
-package com.adstek.drivers.onboarding
+package com.adstek.drivers.onboarding.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.adstek.R
-import com.adstek.data.remote.models.auth.RegisterUserModel
 import com.adstek.databinding.FragmentSecondRegistrationBinding
 import com.adstek.drivers.onboarding.viewModel.OnBoardingViewModel
 import com.adstek.util.Constants
 import com.adstek.util.SharedPref
-import com.adstek.util.loadFromFile
-import com.adstek.util.navigateTo
-import com.adstek.util.observeEventLiveData
-import com.adstek.util.popBackStackOrFinish
-import com.adstek.util.toast
+import com.adstek.extensions.loadFromFile
+import com.adstek.extensions.navigateTo
+import com.adstek.extensions.observeEventLiveData
+import com.adstek.extensions.popBackStackOrFinish
+import com.adstek.extensions.toast
 import com.adstek.util.view.removeView
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,12 +52,17 @@ class SecondRegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
 
-        binding.dropDownIDType.setDropdownList(arrayOf("Driving License", "Passport", "Nation ID"))
+
+        val idTypes = resources.getStringArray(R.array.id_type)
+        binding.dropDownIDType.setDropdownList(idTypes)
         onClicks()
 
-        observeEventLiveData(onBoardingViewModel.registerCustomerResponse) {response ->
-            navigateTo(SecondRegistrationFragmentDirections.navigateToVerifyEmail(email = sharedPref.getPref("email", ""), userId =response?.user_id))
+        observeEventLiveData(onBoardingViewModel.registerCustomerResponse, onError = {
+            toast(it)
+        }) {response ->
+            navigateTo(SecondRegistrationFragmentDirections.navigateToVerifyEmail(email = sharedPref.getPref(Constants.KEY_EMAIL, ""), userId =response?.user_id))
         }
 
         binding.dropDownIDType.getDropDownAutoText().setOnFocusChangeListener { v, hasFocus ->
@@ -75,7 +79,7 @@ class SecondRegistrationFragment : Fragment() {
                     sharedPref.setPref(Constants.KEY_ID_NUMBER, binding.idCardNumberField.getFieldText())
                     binding.idCardNumberField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
                 } else {
-                    binding.idCardNumberField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
+                    binding.idCardNumberField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#FFFFFF")
                 }
 
             }
@@ -88,7 +92,7 @@ class SecondRegistrationFragment : Fragment() {
                 }
                 binding.idNumberTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
             } else {
-                binding.idNumberTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
+                binding.idNumberTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#FFFFFF")
             }
         }
 
@@ -98,7 +102,7 @@ class SecondRegistrationFragment : Fragment() {
                     sharedPref.setPref(Constants.KEY_PHONE_NUMBER, binding.phoneTextField.getFieldText())
                     binding.phoneTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
                 } else {
-                    binding.phoneTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
+                    binding.phoneTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#FFFFFF")
                 }
             }
         }
@@ -215,11 +219,9 @@ class SecondRegistrationFragment : Fragment() {
                         idCardUrl = uri.toString()
                         loadFromFile(requireContext(), binding.idCardImgView, idCardUrl)
                         sharedPref.setPref(Constants.KEY_ID_IMAGE, uri.toString())
-
                                 binding.tvUploadText.removeView()
                                 binding.tvTypeUpload.removeView()
                                 binding.tvUploadIcon.removeView()
-
                         }
                     }
                 }

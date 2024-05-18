@@ -35,4 +35,12 @@
     <string name="terms_of_use">Terms of Use</string>
     <string name="enter_the_code">Enter the code</string>
 
+    <string name="failed_signin">Sign In Failed</string>
+    <string name="success_signin">Sign In Successfully</string>
+
+    <string-array name="id_type">
+        <item>Driving License</item>
+        <item>Passport</item>
+        <item>Nation ID</item>
+    </string-array>
 </resources>

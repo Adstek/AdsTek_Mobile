@@ -1,4 +1,4 @@
-package com.adstek.util
+package com.adstek.components
 
 import android.app.Activity
 import android.app.Dialog

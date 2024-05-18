@@ -6,18 +6,8 @@
     app:startDestination="@id/signInFragment">
 
     <fragment
-        android:id="@+id/splashScreenFragment"
-        android:name="com.adstek.SplashScreenFragment"
-        android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen">
-
-        <action
-            android:id="@+id/navigateToFirstRegistration"
-            app:destination="@id/firstRegistrationFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/firstRegistrationFragment"
-        android:name="com.adstek.drivers.onboarding.FirstRegistrationFragment"
+        android:name="com.adstek.drivers.onboarding.ui.FirstRegistrationFragment"
         android:label="fragment_first_registration"
         tools:layout="@layout/fragment_first_registration" >
         <action
@@ -30,7 +20,7 @@
 
     <fragment
         android:id="@+id/secondRegistrationFragment"
-        android:name="com.adstek.drivers.onboarding.SecondRegistrationFragment"
+        android:name="com.adstek.drivers.onboarding.ui.SecondRegistrationFragment"
         android:label="fragment_second_registration"
         tools:layout="@layout/fragment_second_registration" >
         <action
@@ -40,7 +30,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.adstek.SignInFragment"
+        android:name="com.adstek.drivers.onboarding.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -52,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/verificationTypeFragment"
-        android:name="com.adstek.drivers.onboarding.VerificationOptionFragment"
+        android:name="com.adstek.drivers.onboarding.ui.VerificationOptionFragment"
         android:label="fragment_email"
         tools:layout="@layout/fragment_verification_option" >
 
@@ -63,9 +53,9 @@
 
     <fragment
         android:id="@+id/verifyEmailFragment"
-        android:name="com.adstek.drivers.onboarding.EnterEmailFragment"
+        android:name="com.adstek.drivers.onboarding.ui.VerifyEmailFragment"
         android:label="fragment_verify_email"
-        tools:layout="@layout/fragment_enter_email" >
+        tools:layout="@layout/fragment_verify_email" >
 
         <argument
             android:name="userId"
@@ -85,11 +75,11 @@
     </fragment>
     <fragment
         android:id="@+id/verifyPhoneFragment"
-        android:name="com.adstek.drivers.onboarding.EnterPhoneFragment"
+        android:name="com.adstek.drivers.onboarding.ui.EnterPhoneFragment"
         android:label="VerifyPhoneFragment" />
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.adstek.HomeFragment"
+        android:name="com.adstek.drivers.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
 

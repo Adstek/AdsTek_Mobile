@@ -6,11 +6,10 @@ import com.adstek.api.AdsTekApi
 import com.adstek.data.remote.RegisterReponse
 import com.adstek.data.remote.models.LoginRequest
 import com.adstek.data.remote.models.VerifyEmail
-import com.adstek.data.remote.models.auth.PhoneNumber
 import com.adstek.data.remote.models.auth.RegisterUserModel
-import com.adstek.util.network.DataState
+import com.adstek.data.remote.DataState
 import com.adstek.util.SharedPref
-import com.adstek.util.network.makeNetworkRequest
+import com.adstek.extensions.makeNetworkRequest
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -58,12 +57,12 @@ class AuthRepository @Inject constructor(
     fun registerDriver(registerUserModel: RegisterUserModel): Flow<DataState<RegisterReponse>> {
         val map: MutableMap<String, RequestBody> = mutableMapOf()
 
-//        val profileUri = Uri.parse(registerUserModel.profileImage)
-//        val profileImage = profileUri.toFile()
+        val profileUri = Uri.parse(registerUserModel.profileImage)
+        val profileImage = profileUri.toFile()
 
 
-//        val IdUri = Uri.parse(registerUserModel.profileImage)
-//        val IdImage = profileUri.toFile()
+        val IdUri = Uri.parse(registerUserModel.profileImage)
+        val IdImage = profileUri.toFile()
 
 
         val firstName = registerUserModel.firstName?.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -87,17 +86,16 @@ class AuthRepository @Inject constructor(
         nationalIdNumber?.let { map["national_id_number"] = it }
         numberPlate?.let { map["number_plate"] = it }
         password?.let { map["password"] = it }
-//        nationalDImage?.let { map["national_id_image"] = it }
 
-//        val requestFile: RequestBody = RequestBody.create("image/jpg".toMediaType(), profileImage)
-//        val multipartImage = MultipartBody.Part.createFormData("profile", profileImage.getName(), requestFile)
-//
-//        val idRequestFile: RequestBody = RequestBody.create("image/jpg".toMediaType(), IdImage)
-//        val idMultipartImage = MultipartBody.Part.createFormData("national_id_image", profileImage.getName(), idRequestFile)
+        val requestFile: RequestBody = RequestBody.create("image/jpg".toMediaType(), profileImage)
+        val multipartImage = MultipartBody.Part.createFormData("profile", profileImage.getName(), requestFile)
 
+        val idRequestFile: RequestBody = RequestBody.create("image/jpg".toMediaType(), IdImage)
+        val idMultipartImage = MultipartBody.Part.createFormData("national_id_image", profileImage.getName(), idRequestFile)
 
 
-        return makeNetworkRequest { adsTekApi.registerDriver(map) }
+
+        return makeNetworkRequest { adsTekApi.registerDriver(map, multipartImage, idMultipartImage) }
     }
 
     fun verifyEmail(verifyEmail: VerifyEmail): Flow<DataState<Any>> {

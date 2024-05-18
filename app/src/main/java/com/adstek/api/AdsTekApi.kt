@@ -21,11 +21,11 @@ interface AdsTekApi {
     @POST("auth/register/")
     suspend fun registerDriver(
         @PartMap userData: MutableMap<String,RequestBody>,
-//        @Part profile: MultipartBody.Part,
-//        @Part idFile: MultipartBody.Part,
+        @Part profile: MultipartBody.Part,
+        @Part idFile: MultipartBody.Part,
     ): Response<RegisterReponse>
 
-    suspend fun sendOtpOnPhoneNumber(@Body phone: PhoneNumber): Response<RegisterReponse>
+    suspend fun sendOtpOnPhoneNumber(@Body phone: PhoneNumber): ApiResponse<RegisterReponse>
 
     @POST("auth/verify-email")
     suspend fun verifyEmail(@Body verifyEmail: VerifyEmail): Response<Any>

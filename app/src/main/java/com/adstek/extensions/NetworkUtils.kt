@@ -1,8 +1,8 @@
-package com.adstek.util.network
+package com.adstek.extensions
 
-import com.adstek.data.remote.ApiResponse
-import com.adstek.util.Constants.SOMETHING_WENT_WRONG
-import com.google.gson.GsonBuilder
+import com.adstek.data.remote.DataState
+import com.adstek.data.remote.ErrorResponse
+import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -59,13 +59,20 @@ fun <T> makeNetworkRequest(dispatcher: CoroutineDispatcher = Dispatchers.IO,
         try {
             val response = request.invoke()
             if (response.isSuccessful) {
-                emit(DataState.Success(response.body())) // Emit successful state with null since it's Void.
+                emit(DataState.Success(response.body()))
             } else {
-                emit(DataState.Error(Exception("An error occurred")))
+                val errorResponse: ErrorResponse? = try {
+                    response.errorBody()?.string()?.let {
+                        Gson().fromJson(it, ErrorResponse::class.java)
+                    }
+                } catch (e: JsonSyntaxException) {
+                    null
+                }
+
+                val errorMessage = errorResponse?.message?.values?.flatten()?.joinToString("\n")
+                    ?: response.message()
+                emit(DataState.Error(Exception(errorMessage)))
             }
-        }
-        catch (e: HttpException) {
-            emit(DataState.Error(Exception("An error occurred")))
         }
         catch (e: UnknownHostException){
             Timber.tag("requestException").e("$e")

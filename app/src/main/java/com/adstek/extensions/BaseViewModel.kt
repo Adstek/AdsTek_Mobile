@@ -1,4 +1,4 @@
-package com.adstek.util
+package com.adstek.extensions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

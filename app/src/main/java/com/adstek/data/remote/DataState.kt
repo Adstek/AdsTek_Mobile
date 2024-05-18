@@ -1,4 +1,4 @@
-package com.adstek.util.network
+package com.adstek.data.remote
 
 import java.lang.Exception
 

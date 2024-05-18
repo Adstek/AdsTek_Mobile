@@ -1,7 +1,8 @@
-package com.adstek.util
+package com.adstek.extensions
 
 import androidx.lifecycle.MutableLiveData
-import com.adstek.util.network.DataState
+import com.adstek.data.remote.models.Event
+import com.adstek.data.remote.DataState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.adstek.util
+package com.adstek.extensions
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections

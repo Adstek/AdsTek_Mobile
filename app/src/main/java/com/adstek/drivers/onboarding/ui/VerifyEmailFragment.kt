@@ -1,4 +1,4 @@
-package com.adstek.drivers.onboarding
+package com.adstek.drivers.onboarding.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,23 +9,21 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.adstek.data.remote.models.VerifyEmail
-import com.adstek.databinding.FragmentEnterEmailBinding
+import com.adstek.databinding.FragmentVerifyEmailBinding
 import com.adstek.drivers.onboarding.viewModel.OnBoardingViewModel
 import com.adstek.util.SharedPref
-import com.adstek.util.navigateTo
-import com.adstek.util.observeEventLiveData
-import com.adstek.util.popBackStackOrFinish
-import com.adstek.util.toast
+import com.adstek.extensions.observeEventLiveData
+import com.adstek.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class EnterEmailFragment : Fragment() {
-    private lateinit var binding: FragmentEnterEmailBinding
+class VerifyEmailFragment : Fragment() {
+    private lateinit var binding: FragmentVerifyEmailBinding
 
     @Inject
     lateinit var sharedPref: SharedPref;
-    private val args: EnterEmailFragmentArgs by navArgs()
+    private val args: VerifyEmailFragmentArgs by navArgs()
     private var userId = ""
 
     private val onBoardingViewModel: OnBoardingViewModel by activityViewModels()
@@ -35,7 +33,7 @@ class EnterEmailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEnterEmailBinding.inflate(inflater)
+        binding = FragmentVerifyEmailBinding.inflate(inflater)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -71,7 +69,6 @@ class EnterEmailFragment : Fragment() {
                     onBoardingViewModel.verifyEmail(verifyEmail)
             }
         }
-
 
         back.btnBack.setOnClickListener  {
             findNavController().popBackStack()

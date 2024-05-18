@@ -1,8 +1,8 @@
-package com.adstek.drivers.onboarding
+package com.adstek.drivers.onboarding.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Environment
@@ -15,19 +15,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.adstek.databinding.FragmentFirstRegistrationBinding
 import com.adstek.drivers.onboarding.viewModel.OnBoardingViewModel
-import com.adstek.util.BitmapUtils
 import com.adstek.util.Constants
 import com.adstek.util.SharedPref
-import com.adstek.util.loadFromFile
-import com.adstek.util.navigateTo
-import com.adstek.util.popBackStackOrFinish
+import com.adstek.extensions.loadFromFile
+import com.adstek.extensions.navigateTo
+import com.adstek.extensions.popBackStackOrFinish
 import com.adstek.util.view.removeView
 import com.github.dhaval2404.imagepicker.ImagePicker
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
@@ -49,12 +45,16 @@ class FirstRegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFirstRegistrationBinding.inflate(inflater)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onClickActions()
+
+
 
         binding.dropDownGenderTextField.setDropdownList(arrayOf("male", "female"))
         binding.dropDownNationalityTextField.setDropdownList(arrayOf("Ghanaian"))
@@ -65,9 +65,9 @@ class FirstRegistrationFragment : Fragment() {
                 if (binding.firstNameTextField.getFieldText().isNotEmpty()){
                     sharedPref.setPref(Constants.KEY_FIRST_NAME, binding.firstNameTextField.getFieldText())
                 }
-                binding.lastNameTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
+                binding.firstNameTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
             } else {
-                binding.lastNameTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#FFFFFF")
+                binding.firstNameTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#FFFFFF")
 
             }
         }
@@ -89,9 +89,9 @@ class FirstRegistrationFragment : Fragment() {
                 if (binding.emailTextField.getFieldText().isNotEmpty()){
                     sharedPref.setPref(Constants.KEY_EMAIL, binding.emailTextField.getFieldText())
                 }
-                binding.lastNameTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
+                binding.emailTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
             } else {
-                binding.lastNameTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
+                binding.emailTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#FFFFFF")
 
             }
         }
@@ -110,9 +110,6 @@ class FirstRegistrationFragment : Fragment() {
             if (!hasFocus){
                 if (binding.dropDownNationalityTextField.getSelectedValue()?.isNotEmpty() == true){
                     sharedPref.setPref(Constants.KEY_NATIONALITY, binding.dropDownNationalityTextField.getSelectedValue())
-                    binding.lastNameTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
-                } else {
-                    binding.lastNameTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
                 }
             }
         }
@@ -129,6 +126,10 @@ class FirstRegistrationFragment : Fragment() {
         }
         uploadImage.setOnClickListener {
             selectImage(false, false)
+
+            sharedPref.setPref(Constants.KEY_GENDER,  binding.dropDownGenderTextField.getSelectedValue())
+            sharedPref.setPref(Constants.KEY_NATIONALITY, binding.dropDownNationalityTextField.getSelectedValue())
+
         }
 
     }
