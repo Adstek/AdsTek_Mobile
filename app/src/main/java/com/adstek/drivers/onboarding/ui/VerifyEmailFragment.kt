@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.adstek.data.remote.models.VerifyEmail
 import com.adstek.databinding.FragmentVerifyEmailBinding
+import com.adstek.drivers.onboarding.events.OnboaringEvents
 import com.adstek.drivers.onboarding.viewModel.OnBoardingViewModel
 import com.adstek.util.SharedPref
 import com.adstek.extensions.observeEventLiveData
@@ -53,7 +54,7 @@ class VerifyEmailFragment : Fragment() {
 
         observeEventLiveData(onBoardingViewModel.verifyEmailResponse, onError = {
             toast("OTP Invalid")
-        }) {response ->
+        }) {
             toast("Email Verified")
         }
     }
@@ -66,7 +67,7 @@ class VerifyEmailFragment : Fragment() {
             otp.isEmpty() -> toast("Enter the OTP")
             else -> {
                     val verifyEmail = VerifyEmail(userId.toInt(), otp.toInt())
-                    onBoardingViewModel.verifyEmail(verifyEmail)
+                    onBoardingViewModel.handleEvent(OnboaringEvents.onVerifyEmail(verifyEmail))
             }
         }
 

@@ -8,6 +8,8 @@ import com.adstek.data.remote.models.LoginRequest
 import com.adstek.data.remote.models.VerifyEmail
 import com.adstek.data.remote.models.auth.RegisterUserModel
 import com.adstek.data.remote.DataState
+import com.adstek.data.remote.models.ResetPassword
+import com.adstek.data.remote.models.auth.StartResetPassword
 import com.adstek.util.SharedPref
 import com.adstek.extensions.makeNetworkRequest
 import kotlinx.coroutines.flow.Flow
@@ -100,6 +102,14 @@ class AuthRepository @Inject constructor(
 
     fun verifyEmail(verifyEmail: VerifyEmail): Flow<DataState<Any>> {
         return makeNetworkRequest { adsTekApi.verifyEmail(verifyEmail) }
+    }
+
+    fun startResetPassword(startResetPassword: StartResetPassword): Flow<DataState<Any>> {
+        return makeNetworkRequest { adsTekApi.startResetPassword(startResetPassword) }
+    }
+
+    fun confirmResetPassword(resetPassword: ResetPassword): Flow<DataState<Any>> {
+        return makeNetworkRequest { adsTekApi.confirmResetPassword(resetPassword) }
     }
 
     fun login(loginRequest: LoginRequest): Flow<DataState<Any>> {

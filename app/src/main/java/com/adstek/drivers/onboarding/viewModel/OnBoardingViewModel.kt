@@ -11,6 +11,9 @@ import com.adstek.extensions.BaseViewModel
 import com.adstek.util.Constants
 import com.adstek.data.remote.DataState
 import com.adstek.data.remote.models.Event
+import com.adstek.data.remote.models.ResetPassword
+import com.adstek.data.remote.models.auth.StartResetPassword
+import com.adstek.drivers.onboarding.events.OnboaringEvents
 import com.adstek.util.SharedPref
 import com.adstek.extensions.emitFlowResultsToEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +34,14 @@ class OnBoardingViewModel @Inject constructor(
     val verifyEmailResponse: LiveData<Event<DataState<Any>>> get() = _verifyEmailResponse
 
 
+    private val _startResetResponse: MutableLiveData<Event<DataState<Any>>> = MutableLiveData()
+    val startResetResponse: LiveData<Event<DataState<Any>>> get() = _startResetResponse
+
+
+    private val _confirmPasswordResetResponse: MutableLiveData<Event<DataState<Any>>> = MutableLiveData()
+    val confirmPasswordResetResponse: LiveData<Event<DataState<Any>>> get() = _confirmPasswordResetResponse
+
+
     private val _loginResponse: MutableLiveData<Event<DataState<Any>>> = MutableLiveData()
     val loginResponse: LiveData<Event<DataState<Any>>> get() = _loginResponse
 
@@ -39,12 +50,33 @@ class OnBoardingViewModel @Inject constructor(
     val verifyPhoneResponse: LiveData<Event<DataState<Any>>> get() = _verifyPhoneResponse
 
 
+
+    fun handleEvent(event: OnboaringEvents) {
+        when (event) {
+            is OnboaringEvents.onSignInEvent -> login(event.loginRequest)
+            is OnboaringEvents.onSignUpEvent -> registerDriver(event.registerUserModel)
+            is OnboaringEvents.onVerifyEmail -> verifyEmail(event.verifyEmail)
+            is OnboaringEvents.onStartResetPassword -> startResetPassword(event.startResetPassword)
+            is OnboaringEvents.onResetPassword -> confirmResetPassword(event.resetPassword)
+            else -> {}
+        }
+    }
+
+
     fun registerDriver(registerUserModel: RegisterUserModel) = emitFlowResultsToEvent(_registerCustomerResponse) {
         authRepository.registerDriver(registerUserModel)
     }
 
     fun verifyEmail(verifyEmail: VerifyEmail) = emitFlowResultsToEvent(_verifyEmailResponse) {
         authRepository.verifyEmail(verifyEmail)
+    }
+
+    fun startResetPassword(startResetPassword: StartResetPassword) = emitFlowResultsToEvent(_startResetResponse) {
+        authRepository.startResetPassword(startResetPassword)
+    }
+
+    fun confirmResetPassword(resetPassword: ResetPassword) = emitFlowResultsToEvent(_confirmPasswordResetResponse) {
+        authRepository.confirmResetPassword(resetPassword)
     }
 
     fun login(loginRequest: LoginRequest) = emitFlowResultsToEvent(_loginResponse) {

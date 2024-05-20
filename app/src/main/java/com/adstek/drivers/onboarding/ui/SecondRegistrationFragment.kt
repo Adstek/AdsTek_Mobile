@@ -14,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.adstek.R
 import com.adstek.databinding.FragmentSecondRegistrationBinding
+import com.adstek.drivers.onboarding.events.OnboaringEvents
 import com.adstek.drivers.onboarding.viewModel.OnBoardingViewModel
 import com.adstek.util.Constants
 import com.adstek.util.SharedPref
@@ -21,9 +22,13 @@ import com.adstek.extensions.loadFromFile
 import com.adstek.extensions.navigateTo
 import com.adstek.extensions.observeEventLiveData
 import com.adstek.extensions.popBackStackOrFinish
+import com.adstek.extensions.setCustomFocusChangeListener
+import com.adstek.extensions.setCustomFocusChangeListenerForDropdown
 import com.adstek.extensions.toast
 import com.adstek.util.view.removeView
+import com.adstek.util.view.removeViews
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
@@ -36,7 +41,6 @@ class SecondRegistrationFragment : Fragment() {
     private var idCardUrl = ""
 
     private val onBoardingViewModel: OnBoardingViewModel by activityViewModels()
-
 
     @Inject
     lateinit var sharedPref: SharedPref;
@@ -51,68 +55,62 @@ class SecondRegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-
-
-        val idTypes = resources.getStringArray(R.array.id_type)
-        binding.dropDownIDType.setDropdownList(idTypes)
-        onClicks()
+        setupDropdown()
+        setupFocusChangeListeners()
+        onEventClicks()
 
         observeEventLiveData(onBoardingViewModel.registerCustomerResponse, onError = {
             toast(it)
-        }) {response ->
-            navigateTo(SecondRegistrationFragmentDirections.navigateToVerifyEmail(email = sharedPref.getPref(Constants.KEY_EMAIL, ""), userId =response?.user_id))
+        }) { response ->
+            navigateTo(
+                SecondRegistrationFragmentDirections.navigateToVerifyEmail(
+                    email = sharedPref.getPref(Constants.KEY_EMAIL, ""),
+                    userId = response?.user_id
+                )
+            )
         }
+    }
 
-        binding.dropDownIDType.getDropDownAutoText().setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus){
-                if (binding.dropDownIDType.getSelectedValue()?.isNotEmpty() == true){
-                    sharedPref.setPref(Constants.KEY_ID_TYPE, binding.dropDownIDType.getSelectedValue())
-                }
-            }
-        }
+    private fun setupDropdown() {
+        val idTypes = resources.getStringArray(R.array.id_type)
+        binding.dropDownIDType.setDropdownList(idTypes)
+    }
 
-        binding.idCardNumberField.getTextInputEditText().setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus){
-                if (binding.idCardNumberField.getFieldText().isNotEmpty()){
-                    sharedPref.setPref(Constants.KEY_ID_NUMBER, binding.idCardNumberField.getFieldText())
-                    binding.idCardNumberField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
-                } else {
-                    binding.idCardNumberField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#FFFFFF")
-                }
-
-            }
-        }
-
-        binding.idNumberTextField.getTextInputEditText().setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus){
-                if (binding.idNumberTextField.getFieldText().isNotEmpty()){
-                    sharedPref.setPref(Constants.KEY_NUMBER_PLATE, binding.idNumberTextField.getFieldText())
-                }
-                binding.idNumberTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
-            } else {
-                binding.idNumberTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#FFFFFF")
-            }
-        }
-
-        binding.phoneTextField.getTextInputEditText().setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus){
-                if (binding.phoneTextField.getFieldText().isNotEmpty()){
-                    sharedPref.setPref(Constants.KEY_PHONE_NUMBER, binding.phoneTextField.getFieldText())
-                    binding.phoneTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#EFF1F3")
-                } else {
-                    binding.phoneTextField.getTextInputLayout() .boxBackgroundColor = Color.parseColor("#FFFFFF")
-                }
-            }
-        }
+    private fun setupFocusChangeListeners() = with(binding) {
+        setCustomFocusChangeListenerForDropdown(
+            dropDownIDType.getDropDownAutoText(),
+            {dropDownIDType.getSelectedValue() },
+            Constants.KEY_ID_TYPE,
+            sharedPref
+        )
+        setCustomFocusChangeListener(
+            idCardNumberField.getTextInputEditText(),
+            { idCardNumberField.getFieldText() },
+            Constants.KEY_ID_NUMBER,
+            idCardNumberField.getTextInputLayout(),
+            sharedPref
+        )
+        setCustomFocusChangeListener(
+            idNumberTextField.getTextInputEditText(),
+            {idNumberTextField.getFieldText() },
+            Constants.KEY_NUMBER_PLATE,
+            idNumberTextField.getTextInputLayout(),
+            sharedPref
+        )
+        setCustomFocusChangeListener(
+            phoneTextField.getTextInputEditText(),
+            {phoneTextField.getFieldText()},
+            Constants.KEY_PHONE_NUMBER,
+            phoneTextField.getTextInputLayout(),
+            sharedPref
+        )
     }
 
     override fun onResume() {
         super.onResume()
         reloadForm()
-
-
     }
 
     private fun reloadForm() = with(binding){
@@ -127,21 +125,17 @@ class SecondRegistrationFragment : Fragment() {
         idNumberTextField.setFieldText(numberPlate)
         phoneTextField.setFieldText(phoneNumber)
 
-        loadFromFile(requireContext(), binding.idCardImgView, idImage)
+        loadFromFile(requireContext(), idCardImgView, idImage)
 
         if (idImage.isNotEmpty()){
             if (idImage.isNotEmpty()){
-                binding.tvUploadText.removeView()
-                binding.tvTypeUpload.removeView()
-                binding.tvUploadIcon.removeView()
-
+                root.removeViews(tvUploadText,tvTypeUpload, tvUploadIcon)
             }
         }
 
     }
 
-
-    private fun onClicks() = with(binding){
+    private fun onEventClicks() = with(binding){
         back.btnBack.setOnClickListener {
             popBackStackOrFinish()
         }
@@ -160,32 +154,25 @@ class SecondRegistrationFragment : Fragment() {
         val numberPlate = phoneTextField.getFieldText()
         val phoneNumber = phoneTextField.getFieldText()
         val password = passwordTextField.getFieldText()
+        val confirmPassword = passwordConfirmTextField.getFieldText()
 
         val profileImage = sharedPref.getPref(Constants.KEY_PROFILE_IMAGE, "")
 
-
-        val confirmPassword = passwordConfirmTextField.getFieldText()
-
         when {
+            password.isEmpty() -> toast("Password cannot be blank")
+            confirmPassword.isEmpty() -> toast("Confirm Password cannot be blank")
             password != confirmPassword -> toast("Password do not match")
             else -> {
-//                onBoardingViewModel.saveSecondScreenRegistrationData(
-//                    numberPlate = numberPlate,
-//                    nationalIdNumber = idNumber,
-//                    phoneNumber = phoneNumber,
-//                    idImage = idCardUrl
-//                )
-                    onBoardingViewModel.registerDriver(
-                    sharedPref.userModel.copy (
-                        nationalIdNumber = idNumber.takeIf { it.isNotEmpty() },
-                        numberPlate = numberPlate.takeIf { it.isNotEmpty() },
-                        nationaldType = idCardType?.takeIf { it.isNotEmpty()},
-                        phoneNumber = phoneNumber.takeIf { it.isNotEmpty()},
-                        nationalDImage = idCardUrl,
-                        profileImage = profileImage,
-                        password = password
-                    )
+                val registerUserModel = sharedPref.userModel.copy (
+                    nationalIdNumber = idNumber.takeIf { it.isNotEmpty() },
+                    numberPlate = numberPlate.takeIf { it.isNotEmpty() },
+                    nationaldType = idCardType?.takeIf { it.isNotEmpty()},
+                    phoneNumber = phoneNumber.takeIf { it.isNotEmpty()},
+                    nationalDImage = idCardUrl,
+                    profileImage = profileImage,
+                    password = password
                 )
+                onBoardingViewModel.handleEvent(OnboaringEvents.onSignUpEvent(registerUserModel))
             }
         }
 
@@ -219,9 +206,9 @@ class SecondRegistrationFragment : Fragment() {
                         idCardUrl = uri.toString()
                         loadFromFile(requireContext(), binding.idCardImgView, idCardUrl)
                         sharedPref.setPref(Constants.KEY_ID_IMAGE, uri.toString())
-                                binding.tvUploadText.removeView()
-                                binding.tvTypeUpload.removeView()
-                                binding.tvUploadIcon.removeView()
+                        binding.apply {
+                            root.removeViews(tvUploadText, tvTypeUpload, tvUploadIcon)
+                        }
                         }
                     }
                 }

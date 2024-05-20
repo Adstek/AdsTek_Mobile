@@ -39,6 +39,12 @@
         <action
             android:id="@+id/action_signInFragment_to_emailFragment"
             app:destination="@id/verificationTypeFragment" />
+        <action
+            android:id="@+id/navigateToVerifyEmail"
+            app:destination="@id/verifyEmailFragment" />
+        <action
+            android:id="@+id/navigateToResetPassword"
+            app:destination="@id/resetFragment" />
     </fragment>
     <fragment
         android:id="@+id/verificationTypeFragment"
@@ -82,5 +88,10 @@
         android:name="com.adstek.drivers.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/resetFragment"
+        android:name="com.adstek.drivers.onboarding.ui.ResetFragment"
+        android:label="fragment_reset"
+        tools:layout="@layout/fragment_reset" />
 
 </navigation>

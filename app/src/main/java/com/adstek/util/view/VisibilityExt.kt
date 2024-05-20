@@ -12,11 +12,13 @@ fun List<View>.showViews() {
     }
 }
 
-fun List<View>.removeViews() {
-    forEach {
+
+fun View.removeViews(vararg views: View) {
+    views.forEach {
         it.visibility = View.GONE
     }
 }
+
 
 fun View.hideView() {
     this.visibility = View.INVISIBLE

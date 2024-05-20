@@ -2,8 +2,10 @@ package com.adstek.extensions
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Environment
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -14,8 +16,10 @@ import androidx.lifecycle.LiveData
 import com.adstek.data.remote.models.Event
 import com.adstek.components.LoadingDialog
 import com.adstek.data.remote.DataState
+import com.adstek.util.SharedPref
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.textfield.TextInputLayout
 import timber.log.Timber
 import java.io.File
 
@@ -93,6 +97,44 @@ fun <T> Fragment.observeEventLiveData(
                     }
 
                 }
+            }
+        }
+    }
+}
+
+fun Fragment.setCustomFocusChangeListener(
+    view: View,
+    getFieldText: () -> String?,
+    key: String,
+    layout: TextInputLayout,
+    sharedPref: SharedPref
+) {
+    view.setOnFocusChangeListener { _, hasFocus ->
+        if (!hasFocus) {
+            val fieldText = getFieldText()
+            if (fieldText?.isNotEmpty() == true) {
+                sharedPref.setPref(key, fieldText)
+                layout.boxBackgroundColor = Color.parseColor("#EFF1F3")
+            } else {
+                layout.boxBackgroundColor = Color.parseColor("#FFFFFF")
+            }
+        } else {
+            layout.boxBackgroundColor = Color.parseColor("#FFFFFF")
+        }
+    }
+}
+
+fun Fragment.setCustomFocusChangeListenerForDropdown(
+    view: View,
+    getSelectedValue: () -> String?,
+    key: String,
+    sharedPref: SharedPref
+) {
+    view.setOnFocusChangeListener { _, hasFocus ->
+        if (!hasFocus) {
+            val selectedValue = getSelectedValue()
+            if (!selectedValue.isNullOrEmpty()) {
+                sharedPref.setPref(key, selectedValue)
             }
         }
     }
