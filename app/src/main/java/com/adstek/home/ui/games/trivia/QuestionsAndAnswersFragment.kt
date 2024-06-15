@@ -1,5 +1,6 @@
 package com.adstek.home.ui.games.trivia
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import com.adstek.data.remote.requests.InteractRequest
 import com.adstek.data.remote.response.TriviaResult
@@ -34,13 +36,14 @@ class QuestionsAndAnswersFragment : Fragment() {
     private var questions: MutableList<TriviaResult>? = null
     private var isQuizCompleted = false
 
+
+    companion object {
+        private const val REQUEST_CODE_ADS = 1
+    }
+
+
 //    private var countDownTimer: CountDownTimer? = null
 
-    override fun onStart() {
-        super.onStart()
-        currentQuestionIndex = 0
-        questions?.clear()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -123,11 +126,10 @@ class QuestionsAndAnswersFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        // Do not clear questions if the quiz is completed
-        if (!isQuizCompleted) {
-            questions?.clear()
-            currentQuestionIndex = 0
-        }
+        triviaViewModel.getTrivia()
+        questions?.clear()
+        currentQuestionIndex = 0
+
     }
     private fun moveToNextQuestion() {
         currentQuestionIndex++
