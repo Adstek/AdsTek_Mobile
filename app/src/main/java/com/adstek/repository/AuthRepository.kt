@@ -3,13 +3,15 @@ package com.adstek.repository
 import android.net.Uri
 import androidx.core.net.toFile
 import com.adstek.api.AdsTekApi
-import com.adstek.data.remote.RegisterReponse
-import com.adstek.data.remote.models.LoginRequest
-import com.adstek.data.remote.models.VerifyEmail
-import com.adstek.data.remote.models.auth.RegisterUserModel
-import com.adstek.data.remote.DataState
-import com.adstek.data.remote.models.ResetPassword
-import com.adstek.data.remote.models.auth.StartResetPassword
+import com.adstek.data.remote.response.RegisterReponse
+import com.adstek.data.remote.requests.LoginRequest
+import com.adstek.data.remote.requests.VerifyEmail
+import com.adstek.data.remote.requests.RegisterUserModel
+import com.adstek.data.remote.response.DataState
+import com.adstek.data.remote.response.SignInResponse
+import com.adstek.data.remote.requests.ResendOTP
+import com.adstek.data.remote.requests.ResetPassword
+import com.adstek.data.remote.requests.StartResetPassword
 import com.adstek.util.SharedPref
 import com.adstek.extensions.makeNetworkRequest
 import kotlinx.coroutines.flow.Flow
@@ -104,6 +106,10 @@ class AuthRepository @Inject constructor(
         return makeNetworkRequest { adsTekApi.verifyEmail(verifyEmail) }
     }
 
+    fun resendOTP(resendOTP: ResendOTP): Flow<DataState<Any>> {
+        return makeNetworkRequest { adsTekApi.resendOtp(resendOTP) }
+    }
+
     fun startResetPassword(startResetPassword: StartResetPassword): Flow<DataState<Any>> {
         return makeNetworkRequest { adsTekApi.startResetPassword(startResetPassword) }
     }
@@ -112,7 +118,7 @@ class AuthRepository @Inject constructor(
         return makeNetworkRequest { adsTekApi.confirmResetPassword(resetPassword) }
     }
 
-    fun login(loginRequest: LoginRequest): Flow<DataState<Any>> {
+    fun login(loginRequest: LoginRequest): Flow<DataState<SignInResponse>> {
         return makeNetworkRequest { adsTekApi.login(loginRequest) }
     }
 

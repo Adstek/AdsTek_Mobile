@@ -1,4 +1,4 @@
-package com.adstek.data.remote
+package com.adstek.data.remote.response
 
 
 data class ApiResponse<T>(

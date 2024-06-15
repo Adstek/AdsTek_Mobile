@@ -73,7 +73,14 @@
             android:name="email"
             app:argType="string"
             android:defaultValue="@null"
-            app:nullable="true"     />
+            app:nullable="true" />
+
+        <argument
+            android:name="from"
+            app:argType="string"
+            android:defaultValue="@null"
+            app:nullable="true" />
+
         <action
             android:id="@+id/navigateToHome"
             app:destination="@id/homeFragment" />

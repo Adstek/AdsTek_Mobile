@@ -1,10 +1,10 @@
 package com.adstek.drivers.onboarding.events
 
-import com.adstek.data.remote.models.LoginRequest
-import com.adstek.data.remote.models.ResetPassword
-import com.adstek.data.remote.models.VerifyEmail
-import com.adstek.data.remote.models.auth.RegisterUserModel
-import com.adstek.data.remote.models.auth.StartResetPassword
+import com.adstek.data.remote.requests.LoginRequest
+import com.adstek.data.remote.requests.ResetPassword
+import com.adstek.data.remote.requests.VerifyEmail
+import com.adstek.data.remote.requests.RegisterUserModel
+import com.adstek.data.remote.requests.StartResetPassword
 
 sealed class OnboaringEvents {
     data class onSignInEvent(val loginRequest: LoginRequest) : OnboaringEvents()

@@ -2,6 +2,7 @@ package com.adstek.di
 
 import com.adstek.api.AdsTekApi
 import com.adstek.BuildConfig
+import com.adstek.data.remote.interceptors.AuthenticationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,9 +40,12 @@ object NetworkModule {
     @Singleton
     @Provides
     @Named("adsTekClient")
-    fun provideOkHttp() : OkHttpClient{
+    fun provideOkHttp(
+        authenticationInterceptor: AuthenticationInterceptor,
+        ) : OkHttpClient{
         return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+            .addInterceptor { chain -> authenticationInterceptor.intercept(chain) }
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .writeTimeout(120, TimeUnit.SECONDS)

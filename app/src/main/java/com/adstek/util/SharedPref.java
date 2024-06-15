@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
-import com.adstek.data.remote.models.auth.RegisterUserModel;
+import com.adstek.data.remote.requests.RegisterUserModel;
 import com.google.gson.Gson;
-
-import java.io.File;
 
 
 public class SharedPref {
@@ -41,6 +39,8 @@ public class SharedPref {
         ed.apply();
 
     }
+
+
 
     public <T> void setPref(String title, T value) {
         String jsonValue = new Gson().toJson(value);

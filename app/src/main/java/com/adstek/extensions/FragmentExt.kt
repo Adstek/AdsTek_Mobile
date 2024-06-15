@@ -13,9 +13,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
-import com.adstek.data.remote.models.Event
+import com.adstek.data.remote.response.Event
 import com.adstek.components.LoadingDialog
-import com.adstek.data.remote.DataState
+import com.adstek.data.remote.response.DataState
 import com.adstek.util.SharedPref
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -101,6 +101,39 @@ fun <T> Fragment.observeEventLiveData(
         }
     }
 }
+
+fun <T> Fragment.observeLiveData(
+    liveData: LiveData<DataState<T>>,
+    enableProgressBar: Boolean = true,
+    onError: ((String) -> Unit)? = null,   // Change here: accepting a String parameter
+    onSuccess: (T?) -> Unit
+) {
+
+    val loadingDialog: LoadingDialog by lazy { LoadingDialog(requireActivity()) }
+
+    liveData.observe(viewLifecycleOwner) { dataState ->
+            when (dataState) {
+                is DataState.Loading -> {
+                    loadingDialog.setLoading(enableProgressBar)
+                }
+                is DataState.Success -> {
+                    loadingDialog.setLoading(false)
+                    onSuccess(dataState.data)
+                }
+                is DataState.Error -> {
+                    loadingDialog.setLoading(false)
+                    Timber.tag("ErrorResponse").d("${dataState.exception}")
+                    dataState.exception.message?.let { errorMsg ->
+                        onError?.invoke(errorMsg)  // Pass errorMsg to the onError lambda
+
+                    }
+
+                }
+            }
+        }
+    }
+
+
 
 fun Fragment.setCustomFocusChangeListener(
     view: View,

@@ -2,17 +2,19 @@ package com.adstek.drivers.onboarding.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.adstek.data.remote.RegisterReponse
-import com.adstek.data.remote.models.LoginRequest
-import com.adstek.data.remote.models.VerifyEmail
-import com.adstek.data.remote.models.auth.RegisterUserModel
+import com.adstek.data.remote.response.RegisterReponse
+import com.adstek.data.remote.requests.LoginRequest
+import com.adstek.data.remote.requests.VerifyEmail
+import com.adstek.data.remote.requests.RegisterUserModel
 import com.adstek.repository.AuthRepository
 import com.adstek.extensions.BaseViewModel
 import com.adstek.util.Constants
-import com.adstek.data.remote.DataState
-import com.adstek.data.remote.models.Event
-import com.adstek.data.remote.models.ResetPassword
-import com.adstek.data.remote.models.auth.StartResetPassword
+import com.adstek.data.remote.response.DataState
+import com.adstek.data.remote.response.SignInResponse
+import com.adstek.data.remote.response.Event
+import com.adstek.data.remote.requests.ResendOTP
+import com.adstek.data.remote.requests.ResetPassword
+import com.adstek.data.remote.requests.StartResetPassword
 import com.adstek.drivers.onboarding.events.OnboaringEvents
 import com.adstek.util.SharedPref
 import com.adstek.extensions.emitFlowResultsToEvent
@@ -33,6 +35,9 @@ class OnBoardingViewModel @Inject constructor(
     private val _verifyEmailResponse: MutableLiveData<Event<DataState<Any>>> = MutableLiveData()
     val verifyEmailResponse: LiveData<Event<DataState<Any>>> get() = _verifyEmailResponse
 
+  private val _resendOTPResponse: MutableLiveData<Event<DataState<Any>>> = MutableLiveData()
+    val resendOTPResponse: LiveData<Event<DataState<Any>>> get() = _resendOTPResponse
+
 
     private val _startResetResponse: MutableLiveData<Event<DataState<Any>>> = MutableLiveData()
     val startResetResponse: LiveData<Event<DataState<Any>>> get() = _startResetResponse
@@ -42,8 +47,8 @@ class OnBoardingViewModel @Inject constructor(
     val confirmPasswordResetResponse: LiveData<Event<DataState<Any>>> get() = _confirmPasswordResetResponse
 
 
-    private val _loginResponse: MutableLiveData<Event<DataState<Any>>> = MutableLiveData()
-    val loginResponse: LiveData<Event<DataState<Any>>> get() = _loginResponse
+    private val _loginResponse: MutableLiveData<Event<DataState<SignInResponse>>> = MutableLiveData()
+    val loginResponse: LiveData<Event<DataState<SignInResponse>>> get() = _loginResponse
 
 
     private val _verifyPhoneResponse: MutableLiveData<Event<DataState<Any>>> = MutableLiveData()
@@ -69,6 +74,10 @@ class OnBoardingViewModel @Inject constructor(
 
     fun verifyEmail(verifyEmail: VerifyEmail) = emitFlowResultsToEvent(_verifyEmailResponse) {
         authRepository.verifyEmail(verifyEmail)
+    }
+
+    fun resendOTP(resendOTP: ResendOTP) = emitFlowResultsToEvent(_resendOTPResponse) {
+        authRepository.resendOTP(resendOTP)
     }
 
     fun startResetPassword(startResetPassword: StartResetPassword) = emitFlowResultsToEvent(_startResetResponse) {

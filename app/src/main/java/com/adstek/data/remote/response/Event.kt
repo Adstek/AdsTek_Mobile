@@ -1,4 +1,4 @@
-package com.adstek.data.remote.models
+package com.adstek.data.remote.response
 
 open class Event<out T>(private val content: T) {
 

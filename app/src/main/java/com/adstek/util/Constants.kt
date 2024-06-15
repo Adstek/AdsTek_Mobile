@@ -23,4 +23,11 @@ object Constants {
     const val KEY_ID_IMAGE = "id_image"
     const val KEY_ID_NUMBER = "id_number"
 
+    const val KEY_IS_SIGNED_IN = "is_sign_in"
+    const val KEY_IS_EMAIL_VERIFIED = "is_email_verified"
+
+
+    const val KEY_ACCESS_TOKEN = "access_token"
+
+
 }

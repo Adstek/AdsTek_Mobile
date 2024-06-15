@@ -1,4 +1,4 @@
-package com.adstek.data.remote.models.auth
+package com.adstek.data.remote.requests
 
 import com.google.gson.annotations.SerializedName
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

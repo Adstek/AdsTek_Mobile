@@ -7,5 +7,14 @@
     <attr name="leadingIcon" format="reference"/>
   </declare-styleable>
 
+ <declare-styleable name="AdsTekCardSelector">
+    <attr name="text" format="string"/>
+    <attr name="image" format="string"/>
+  </declare-styleable>
+
+    <declare-styleable name="TriviaSelector">
+        <attr name="answers" format="string"/>
+    </declare-styleable>
+
 </resources>
 

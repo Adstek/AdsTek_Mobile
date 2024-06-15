@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.adstek.data.remote.models.VerifyEmail
+import com.adstek.R
+import com.adstek.data.remote.requests.ResendOTP
+import com.adstek.data.remote.requests.VerifyEmail
 import com.adstek.databinding.FragmentVerifyEmailBinding
 import com.adstek.drivers.onboarding.events.OnboaringEvents
 import com.adstek.drivers.onboarding.viewModel.OnBoardingViewModel
@@ -26,6 +28,7 @@ class VerifyEmailFragment : Fragment() {
     lateinit var sharedPref: SharedPref;
     private val args: VerifyEmailFragmentArgs by navArgs()
     private var userId = ""
+    private var from = ""
 
     private val onBoardingViewModel: OnBoardingViewModel by activityViewModels()
 
@@ -45,16 +48,32 @@ class VerifyEmailFragment : Fragment() {
             args.let {
                 tvEmail.text = it.email
                 userId = it.userId.toString()
+                from = it.from.toString()
             }
             btnSignIn.onClick{
                 onClicks()
             }
+            resendOTP.setOnClickListener {
+                onBoardingViewModel.resendOTP(ResendOTP(userId.toInt()))
+            }
 
+        }
+
+        observeEventLiveData(onBoardingViewModel.resendOTPResponse, onError = {}) {
+            "OTP Sent"
         }
 
         observeEventLiveData(onBoardingViewModel.verifyEmailResponse, onError = {
             toast("OTP Invalid")
         }) {
+            if (from == "signIn"){
+                val navController = findNavController()
+                val navGraph = navController.navInflater.inflate(R.navigation.home_navigation)
+                navGraph.setStartDestination(R.id.homeFragment2)
+                navController.graph = navGraph
+            } else {
+
+            }
             toast("Email Verified")
         }
     }

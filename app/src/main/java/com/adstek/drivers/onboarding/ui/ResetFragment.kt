@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.adstek.data.remote.models.ResetPassword
+import com.adstek.data.remote.requests.ResetPassword
 import com.adstek.databinding.FragmentResetBinding
 import com.adstek.drivers.onboarding.events.OnboaringEvents
 import com.adstek.drivers.onboarding.viewModel.OnBoardingViewModel

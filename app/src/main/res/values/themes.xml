@@ -1,6 +1,6 @@
-<resources >
+<resources>
     <!-- Base application theme. -->
-    <style name="Base.Theme.AdsTek" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.AdsTek" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/yellow</item>
@@ -16,13 +16,13 @@
 
     <!--    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
     <style name="Widget.App.TextInputLayout" parent="">
-    <item name="boxCornerRadiusBottomEnd">12dp</item>
-    <item name="boxCornerRadiusBottomStart">12dp</item>
-    <item name="boxCornerRadiusTopEnd">12dp</item>
-    <item name="boxCornerRadiusTopStart">12dp</item>
-    <item name="hintEnabled">false</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:textSize">16sp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="hintEnabled">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 
@@ -38,13 +38,12 @@
         <!--        <item name="android:textFontWeight" tools:targetApi="28">500</item>-->
     </style>
 
-        <style name="loadingDialog" parent="@android:style/Theme.DeviceDefault.Dialog">
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:backgroundDimAmount">0.9</item>
-    <item name="android:windowBackground">@android:color/transparent</item>
+    <style name="loadingDialog" parent="@android:style/Theme.DeviceDefault.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimAmount">0.9</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
 
-        </style>
-
+    </style>
 
 
 </resources>

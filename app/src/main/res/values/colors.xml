@@ -11,6 +11,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="yellow">#FFC107</color>
+    <color name="light_yellow">#B3FFE69B</color>
 
     <color name="textfield_border">#EFF1F3</color>
     <color name="textfield_container">#F8F7F7</color>

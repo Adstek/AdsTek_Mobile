@@ -1,7 +1,7 @@
 package com.adstek.extensions
 
-import com.adstek.data.remote.DataState
-import com.adstek.data.remote.ErrorResponse
+import com.adstek.data.remote.response.DataState
+import com.adstek.data.remote.response.ErrorResponse
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import kotlinx.coroutines.CoroutineDispatcher
@@ -9,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import retrofit2.HttpException
 import retrofit2.Response
 import timber.log.Timber
 import java.io.IOException
