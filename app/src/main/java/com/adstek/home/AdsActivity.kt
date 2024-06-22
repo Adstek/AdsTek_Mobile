@@ -3,6 +3,8 @@ package com.adstek.home
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.media3.common.MediaItem
@@ -25,6 +27,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class AdsActivity : AppCompatActivity() {
     private var mediaUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
     private lateinit var binding: ActivityAdsBinding
+    private val handler = Handler(Looper.getMainLooper())
+    private var totalDuration: Long = 0
+
+
 
     private lateinit var player: ExoPlayer
     private val dataSourceFactory: DataSource.Factory = DefaultHttpDataSource.Factory()
@@ -44,6 +50,7 @@ class AdsActivity : AppCompatActivity() {
                 finish() // Finish the activity
             }
         })
+        startUpdatingPlayTime()
     }
 
 
@@ -88,6 +95,8 @@ class AdsActivity : AppCompatActivity() {
         }
     }
 
+
+
     private fun play() {
         player.playWhenReady = true
     }
@@ -99,6 +108,8 @@ class AdsActivity : AppCompatActivity() {
                     // Handle buffering state if needed
                 }
                 STATE_READY -> {
+                    totalDuration = player.duration
+
                     if (!player.isPlaying) {
                         play()
                     }
@@ -114,4 +125,22 @@ class AdsActivity : AppCompatActivity() {
     private fun finishActivityWithResult() {
         finish()
     }
+
+    private fun startUpdatingPlayTime() {
+        handler.post(object : Runnable {
+            override fun run() {
+                val currentPosition = player.currentPosition
+                val remainingTime = totalDuration - currentPosition
+                val formattedTime = formatTime(remainingTime)
+                binding.tvTimer.text = formattedTime
+                handler.postDelayed(this, 1000)
+            }
+        })
+    }
+
+    private fun formatTime(timeInMillis: Long): String {
+        val totalSeconds = timeInMillis / 1000
+        return totalSeconds.toString()
+    }
+
 }
