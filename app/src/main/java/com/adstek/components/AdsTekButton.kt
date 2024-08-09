@@ -39,4 +39,8 @@ class AdsTekButton @JvmOverloads constructor(
     fun onClick(listener: OnClickListener) {
         button.setOnClickListener(listener)
     }
+
+    fun setButtonColor(color: Int) {
+        button.setBackgroundColor(color)
+    }
 }

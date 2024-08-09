@@ -56,6 +56,10 @@ public class SharedPref {
 
     }
 
+    public void clearSharedPref() {
+         mSharedPreferences.edit().clear().apply();
+    }
+
     public boolean getPref(String title, boolean def) {
         return mSharedPreferences.getBoolean(title, def);
     }
@@ -78,6 +82,8 @@ public class SharedPref {
 
         return new Gson().fromJson(value, tClass);
     }
+
+
 
     public RegisterUserModel getUserModel() {
         String email = mSharedPreferences.getString(Constants.KEY_EMAIL, "");

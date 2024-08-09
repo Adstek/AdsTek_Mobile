@@ -10,11 +10,11 @@
     android:background="@color/white">
 
 
-    <include
-        android:id="@+id/back"
-        layout="@layout/common_layout_back_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/back"
+            layout="@layout/common_layout_back_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvTitle"

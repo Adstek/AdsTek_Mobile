@@ -146,6 +146,10 @@ dependencies {
     implementation ("androidx.media3:media3-exoplayer-hls:1.0.0")
     implementation ("androidx.media3:media3-session:1.0.0")
 
+    implementation ("com.airbnb.android:lottie:3.4.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
+
 }
 
 

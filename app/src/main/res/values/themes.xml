@@ -9,6 +9,7 @@
         <item name="fontFamily">@font/lexend</item>
         <item name="font">@font/lexend</item>
         <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:popupBackground">@color/white</item>
     </style>
 
     <style name="Theme.AdsTek" parent="Base.Theme.AdsTek" />
@@ -45,5 +46,11 @@
 
     </style>
 
+    <style name="dialogStyle" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:windowMinWidthMajor">85%</item>
+        <item name="android:windowMinWidthMinor">85%</item>
+        <item name="android:backgroundDimAmount">0.9</item>
+        <item name="fontFamily">@font/lexend</item>
+    </style>
 
 </resources>

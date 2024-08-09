@@ -1,12 +1,13 @@
 package com.adstek.home
 
-import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.Player.STATE_BUFFERING
@@ -19,9 +20,19 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import com.adstek.BuildConfig
+import com.adstek.BuildConfig.GRADLE_BASE_URL
 import com.adstek.databinding.ActivityAdsBinding
-import com.adstek.home.ui.games.trivia.QuestionsAndAnswersFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import java.io.File
+import java.io.IOException
+
 
 @AndroidEntryPoint
 class AdsActivity : AppCompatActivity() {
@@ -41,16 +52,31 @@ class AdsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Retrieve the URL from the Intent extras
-        val link = mediaUrl
 
-        initPlayer(link)
+        val videoLink = intent.getStringExtra("VIDEO_LINK")
+        videoLink?.let { link ->
+            val fullUrl = GRADLE_BASE_URL + link.substring(1)
+            val file = File(getExternalFilesDir(null), "video.mp4")
 
+            downloadVideo(fullUrl, file) { success ->
+                if (success) {
+                    // Initialize player with the downloaded file
+                    lifecycleScope.launch {
+                        initPlayer(file.absolutePath)
+                    }
+                    Log.e("AdsActivity", "Download Video download video")
+
+                } else {
+                    Log.e("AdsActivity", "Failed to download video Failed")
+                }
+            }
+        }
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 finish() // Finish the activity
             }
         })
-        startUpdatingPlayTime()
+//        startUpdatingPlayTime()
     }
 
 
@@ -143,4 +169,40 @@ class AdsActivity : AppCompatActivity() {
         return totalSeconds.toString()
     }
 
+    private fun downloadVideo(url: String, file: File, callback: (Boolean) -> Unit) {
+        val request = Request.Builder().url(url).build()
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                // Log the error with a detailed message
+                Log.e("DownloadVideo", "Failed to download video from $url", e)
+                callback(false)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful) {
+                    // Log the HTTP error
+                    Log.e("DownloadVideo", "HTTP error ${response.code} while downloading video from $url")
+                    callback(false)
+                    return
+                }
+
+                response.body?.byteStream()?.use { inputStream ->
+                    file.outputStream().use { outputStream ->
+                        try {
+                            inputStream.copyTo(outputStream)
+                            callback(true)
+                        } catch (e: IOException) {
+                            // Log error if file writing fails
+                            Log.e("DownloadVideo", "Failed to write video file", e)
+                            callback(false)
+                        }
+                    }
+                } ?: run {
+                    // Log an error if response body is null
+                    Log.e("DownloadVideo", "Response body is null while downloading video from $url")
+                    callback(false)
+                }
+            }
+        })
+    }
 }

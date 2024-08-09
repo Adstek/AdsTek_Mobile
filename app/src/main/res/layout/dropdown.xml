@@ -26,12 +26,7 @@
         android:id="@+id/dropdown_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:boxCornerRadiusBottomEnd="32dp"
-        app:boxCornerRadiusBottomStart="32dp"
-        app:boxCornerRadiusTopEnd="32dp"
-        app:boxCornerRadiusTopStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
         app:placeholderTextColor="@color/black_tint"
         app:layout_constraintTop_toBottomOf="@id/dropdown_txTitle">
 
@@ -42,9 +37,10 @@
             android:imeOptions="actionNext"
             android:inputType="none"
             android:maxLines="1"
-            android:paddingStart="8dp"
+            android:paddingStart="18dp"
             android:paddingVertical="16dp"
             android:textSize="16sp"
-            android:background="@color/textfield_border"/>
+            android:backgroundTint="@color/textfield_border"
+            android:background="@drawable/background_rounded"/>
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

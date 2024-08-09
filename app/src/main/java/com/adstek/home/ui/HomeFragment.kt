@@ -31,5 +31,8 @@ class HomeFragment : Fragment() {
         binding.gamesLayout.setOnClickListener {
             navigateTo(HomeFragmentDirections.navigateToTrivia())
         }
+        binding.driverLayout.setOnClickListener {
+            navigateTo(HomeFragmentDirections.actionHomeFragment2ToDriverProfileFragment())
+        }
     }
 }

@@ -13,13 +13,111 @@
         <action
             android:id="@+id/navigateToTrivia"
             app:destination="@id/questionsAndAnswersFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_driverProfileFragment"
+            app:destination="@id/driverProfileFragment" />
 
     </fragment>
     <fragment
-            android:id="@+id/questionsAndAnswersFragment"
+        android:id="@+id/questionsAndAnswersFragment"
         android:name="com.adstek.home.ui.games.trivia.QuestionsAndAnswersFragment"
         tools:layout="@layout/fragment_questions_and_answers"
         android:label="QuestionsAndAnswersFragment" >
     </fragment>
+    <fragment
+        android:id="@+id/driverProfileFragment"
+        android:name="com.adstek.drivers.onboarding.ui.DriverProfileFragment"
+        android:label="fragment_driver_profile"
+        tools:layout="@layout/fragment_driver_profile" >
+        <action
+            android:id="@+id/action_driverProfileFragment_to_walletFragment"
+            app:destination="@id/walletFragment" />
+        <action
+            android:id="@+id/action_driverProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_driverProfileFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
+        <action
+            android:id="@+id/action_driverProfileFragment_to_contactUSFragment"
+            app:destination="@id/contactUSFragment" />
+        <action
+            android:id="@+id/action_driverProfileFragment_to_termsOfUseFragment"
+            app:destination="@id/termsOfUseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.adstek.home.ui.profile.wallet.WalletFragment"
+        android:label="fragment_wallet"
+        tools:layout="@layout/fragment_wallet" >
+        <action
+            android:id="@+id/action_walletFragment_to_mobileMoneyFragment"
+            app:destination="@id/mobileMoneyFragment" />
+        <action
+            android:id="@+id/action_walletFragment_to_addBankAccountFragment"
+            app:destination="@id/addBankAccountFragment" />
+        <action
+            android:id="@+id/action_walletFragment_to_bankAccountFragment"
+            app:destination="@id/bankAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mobileMoneyFragment"
+        android:name="com.adstek.home.ui.profile.wallet.MobileMoneyFragment"
+        android:label="MobileMoneyFragment"
+        tools:layout="@layout/fragment_mobile_money">
+        <action
+            android:id="@+id/action_mobileMoneyFragment_to_addMobileMoneyFragment"
+            app:destination="@id/addMobileMoneyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMobileMoneyFragment"
+        android:name="com.adstek.home.ui.profile.wallet.AddMobileMoneyFragment"
+        android:label="fragment_add_mobile_money"
+        tools:layout="@layout/fragment_add_mobile_money" >
+        <argument
+            android:name="wallet"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.adstek.data.remote.response.WalletResponse" />
+    </fragment>
+    <fragment
+        android:id="@+id/addBankAccountFragment"
+        android:name="com.adstek.home.ui.profile.wallet.AddBankAccountFragment"
+        android:label="fragment_add_bank_account"
+        tools:layout="@layout/fragment_add_bank_account">
+
+        <argument
+            android:name="wallet"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.adstek.data.remote.response.WalletResponse" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/bankAccountFragment"
+        android:name="com.adstek.home.ui.profile.wallet.BankAccountFragment"
+        android:label="fragment_bank_account"
+        tools:layout="@layout/fragment_bank_account" >
+        <action
+            android:id="@+id/action_bankAccountFragment_to_addBankAccountFragment"
+            app:destination="@id/addBankAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.adstek.home.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.adstek.home.ui.profile.PrivacyPolicyFragment"
+        android:label="PrivacyPolicyFragment" />
+    <fragment
+        android:id="@+id/contactUSFragment"
+        android:name="com.adstek.home.ui.profile.ContactUSFragment"
+        android:label="ContactUSFragment" />
+    <fragment
+        android:id="@+id/termsOfUseFragment"
+        android:name="com.adstek.home.ui.profile.TermsOfUseFragment"
+        android:label="TermsOfUseFragment" />
 
 </navigation>

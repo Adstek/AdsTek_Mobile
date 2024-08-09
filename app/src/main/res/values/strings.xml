@@ -6,6 +6,7 @@
     <string name="enter_your_last_name">Enter your last name</string>
     <string name="select_gender">Select Gender</string>
     <string name="select_nation">Select Nationality</string>
+    <string name="select_phone_number">Select Phone Number</string>
     <string name="select_id_type">Select ID Type</string>
     <string name="enter_number">Enter your phone number</string>
     <string name="enter_email">Enter your email</string>
@@ -43,6 +44,13 @@
         <item>Passport</item>
         <item>Nation ID</item>
     </string-array>
+
+    <string-array name="service_providers">
+        <item>MTN</item>
+        <item>Telecel</item>
+        <item>Airtel - Tigo</item>
+    </string-array>
+
     <string name="title_activity_ads">AdsActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -86,4 +94,11 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="view_wallets">View Wallets</string>
+    <string name="view_mobile_money_wallet">Mobile Money Wallet</string>
+    <string name="add_mobile_money">Add Mobile Money</string>
+    <string name="add_bank_account">Add Bank Account\n</string>
+    <string name="bank_wallets">Bank Wallets</string>
+    <string name="ok">Ok\n</string>
+    <string name="cancel">Cancel\n</string>
 </resources>
