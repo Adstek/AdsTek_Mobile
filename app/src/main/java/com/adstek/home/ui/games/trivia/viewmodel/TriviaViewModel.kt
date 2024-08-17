@@ -10,13 +10,15 @@ import com.adstek.data.remote.response.TriviaQuestions
 import com.adstek.extensions.emitFlowResults
 import com.adstek.util.SharedPref
 import com.adstek.home.ui.games.trivia.repository.TriviaRepository
+import com.adstek.home.ui.profile.repository.ProfileRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class TriviaViewModel @Inject constructor(
     private val triviaRepository: TriviaRepository,
-    private val sharedPref: SharedPref
+    private val sharedPref: SharedPref,
+    private val profileRepository: ProfileRepository
 ): BaseViewModel() {
 
 
@@ -33,5 +35,4 @@ class TriviaViewModel @Inject constructor(
     fun interactWithApi(interactRequest: InteractRequest) = emitFlowResults(_interactResponse) {
         triviaRepository.interact(interactRequest)
     }
-
 }

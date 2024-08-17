@@ -3,6 +3,7 @@ package com.adstek.di
 import android.content.Context
 import androidx.room.Room
 import com.adstek.data.local.AdsTekDatabase
+import com.adstek.data.local.dao.VideoAdDao
 import com.adstek.util.SharedPref
 import dagger.Module
 import dagger.Provides
@@ -30,5 +31,7 @@ object RoomModule {
             "AdsTekDatabase"
         ).fallbackToDestructiveMigration().build()
 
-
+    @Provides
+    fun provideVideoAdDao(adsTekDatabase: AdsTekDatabase): VideoAdDao =
+        adsTekDatabase.videoAdDao()
 }

@@ -15,9 +15,11 @@ import com.adstek.data.remote.requests.StartResetPassword
 import com.adstek.data.remote.response.DidInteractResponse
 import com.adstek.data.remote.response.ProfileUserResponse
 import com.adstek.data.remote.response.User
+import com.adstek.data.remote.response.VideoAdResponse
 import com.adstek.data.remote.response.WalletResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -81,7 +83,7 @@ interface AdsTekApi {
     suspend fun getProfile():Response<ProfileUserResponse>
 
     @GET("admin/general/videolist/")
-        suspend fun getVideosList():Response<Any>
+    suspend fun getVideosList(): Response<VideoAdResponse>
 
 
 }

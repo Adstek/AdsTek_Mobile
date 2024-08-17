@@ -1,37 +1,37 @@
 package com.adstek.home
 
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.Player.STATE_BUFFERING
 import androidx.media3.common.Player.STATE_ENDED
 import androidx.media3.common.Player.STATE_READY
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DataSource
+import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
-import com.adstek.BuildConfig
 import com.adstek.BuildConfig.GRADLE_BASE_URL
 import com.adstek.databinding.ActivityAdsBinding
+import com.adstek.util.downloadVideo
+import com.adstek.util.getFileName
+import com.adstek.util.getVideoAdFile
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import java.io.File
-import java.io.IOException
 
 
 @AndroidEntryPoint
@@ -48,6 +48,14 @@ class AdsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // full screen
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.decorView.windowInsetsController?.let { controller ->
+                controller.hide(WindowInsets.Type.systemBars())
+                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        }
+
         binding = ActivityAdsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -55,32 +63,33 @@ class AdsActivity : AppCompatActivity() {
 
         val videoLink = intent.getStringExtra("VIDEO_LINK")
         videoLink?.let { link ->
-            val fullUrl = GRADLE_BASE_URL + link.substring(1)
-            val file = File(getExternalFilesDir(null), "video.mp4")
+            val file = getVideoAdFile(context = this, fileName = getFileName(link))
 
-            downloadVideo(fullUrl, file) { success ->
-                if (success) {
-                    // Initialize player with the downloaded file
-                    lifecycleScope.launch {
-                        initPlayer(file.absolutePath)
+            if (!file.exists()) {
+                val fullUrl = GRADLE_BASE_URL + link.substring(1)
+                downloadVideo(this, fullUrl) { success ->
+                    if (success) {
+                        lifecycleScope.launch {
+                            initPlayer(file.absolutePath)
+                        }
+                    } else {
+                        finish()
                     }
-                    Log.e("AdsActivity", "Download Video download video")
-
-                } else {
-                    Log.e("AdsActivity", "Failed to download video Failed")
                 }
+                return
+            }
+
+            lifecycleScope.launch {
+                initPlayer(file.absolutePath)
             }
         }
+
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                finish() // Finish the activity
+                finish()
             }
         })
-//        startUpdatingPlayTime()
     }
-
-
-
 
 
     override fun onDestroy() {
@@ -90,10 +99,17 @@ class AdsActivity : AppCompatActivity() {
 
     @androidx.annotation.OptIn(UnstableApi::class)
     private fun initPlayer(link: String) {
+        val formattedLink = if (link.startsWith("/")) "file://$link" else link
         player = ExoPlayer.Builder(this)
             .build()
             .apply {
-                val source = if (link.contains("m3u8")) getHlsMediaSource(link) else getProgressiveMediaSource(link)
+                val source = if (formattedLink.contains("file://")) {
+                    getLocalFileMediaSource(formattedLink)
+                } else if (formattedLink.contains("m3u8")) {
+                    getHlsMediaSource(formattedLink)
+                } else {
+                    getProgressiveMediaSource(formattedLink)
+                }
                 setMediaSource(source)
                 prepare()
                 addListener(playerListener)
@@ -110,18 +126,26 @@ class AdsActivity : AppCompatActivity() {
     @androidx.annotation.OptIn(UnstableApi::class)
     private fun getProgressiveMediaSource(link: String): MediaSource {
         return ProgressiveMediaSource.Factory(dataSourceFactory)
-            .createMediaSource(MediaItem.fromUri(Uri.parse(link)))
+            .createMediaSource(MediaItem.fromUri(link))
+    }
+
+    @androidx.annotation.OptIn(UnstableApi::class)
+    private fun getLocalFileMediaSource(link: String): MediaSource {
+        val fileUri = Uri.parse(link)
+        val dataSourceFactory = DefaultDataSource.Factory(this)
+        return ProgressiveMediaSource.Factory(dataSourceFactory)
+            .createMediaSource(MediaItem.fromUri(fileUri))
     }
 
     private fun releasePlayer() {
-        player.apply {
-            playWhenReady = false
-            stop()
-            release()
+        if (::player.isInitialized) {
+            player.apply {
+                playWhenReady = false
+                stop()
+                release()
+            }
         }
     }
-
-
 
     private fun play() {
         player.playWhenReady = true
@@ -138,6 +162,7 @@ class AdsActivity : AppCompatActivity() {
 
                     if (!player.isPlaying) {
                         play()
+                        startUpdatingPlayTime()
                     }
                 }
                 STATE_ENDED -> {
@@ -145,6 +170,12 @@ class AdsActivity : AppCompatActivity() {
                     finishActivityWithResult() // Finish the activity when video ends
                 }
             }
+        }
+
+        override fun onPlayerError(error: PlaybackException) {
+            super.onPlayerError(error)
+            error.printStackTrace()
+            finish()
         }
     }
 
@@ -167,42 +198,5 @@ class AdsActivity : AppCompatActivity() {
     private fun formatTime(timeInMillis: Long): String {
         val totalSeconds = timeInMillis / 1000
         return totalSeconds.toString()
-    }
-
-    private fun downloadVideo(url: String, file: File, callback: (Boolean) -> Unit) {
-        val request = Request.Builder().url(url).build()
-        OkHttpClient().newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                // Log the error with a detailed message
-                Log.e("DownloadVideo", "Failed to download video from $url", e)
-                callback(false)
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (!response.isSuccessful) {
-                    // Log the HTTP error
-                    Log.e("DownloadVideo", "HTTP error ${response.code} while downloading video from $url")
-                    callback(false)
-                    return
-                }
-
-                response.body?.byteStream()?.use { inputStream ->
-                    file.outputStream().use { outputStream ->
-                        try {
-                            inputStream.copyTo(outputStream)
-                            callback(true)
-                        } catch (e: IOException) {
-                            // Log error if file writing fails
-                            Log.e("DownloadVideo", "Failed to write video file", e)
-                            callback(false)
-                        }
-                    }
-                } ?: run {
-                    // Log an error if response body is null
-                    Log.e("DownloadVideo", "Response body is null while downloading video from $url")
-                    callback(false)
-                }
-            }
-        })
     }
 }

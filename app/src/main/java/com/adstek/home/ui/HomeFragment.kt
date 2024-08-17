@@ -1,14 +1,14 @@
 package com.adstek.home.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.adstek.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.adstek.databinding.FragmentHomeBinding
 import com.adstek.extensions.navigateTo
-import com.adstek.extensions.toast
+import com.adstek.home.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
