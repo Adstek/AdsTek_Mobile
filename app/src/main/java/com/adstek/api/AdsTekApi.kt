@@ -1,25 +1,24 @@
 package com.adstek.api
 
 import com.adstek.data.remote.requests.InteractRequest
+import com.adstek.data.remote.requests.LoginRequest
+import com.adstek.data.remote.requests.PaymentWalletRequest
+import com.adstek.data.remote.requests.PhoneNumber
+import com.adstek.data.remote.requests.ProfileUpdateRequest
+import com.adstek.data.remote.requests.ResendOTP
+import com.adstek.data.remote.requests.ResetPassword
+import com.adstek.data.remote.requests.StartResetPassword
+import com.adstek.data.remote.requests.VerifyEmail
 import com.adstek.data.remote.response.ApiResponse
+import com.adstek.data.remote.response.DidInteractResponse
+import com.adstek.data.remote.response.ProfileUserResponse
 import com.adstek.data.remote.response.RegisterReponse
 import com.adstek.data.remote.response.SignInResponse
 import com.adstek.data.remote.response.TriviaQuestions
-import com.adstek.data.remote.requests.LoginRequest
-import com.adstek.data.remote.requests.PaymentWalletRequest
-import com.adstek.data.remote.requests.ResendOTP
-import com.adstek.data.remote.requests.ResetPassword
-import com.adstek.data.remote.requests.VerifyEmail
-import com.adstek.data.remote.requests.PhoneNumber
-import com.adstek.data.remote.requests.StartResetPassword
-import com.adstek.data.remote.response.DidInteractResponse
-import com.adstek.data.remote.response.ProfileUserResponse
-import com.adstek.data.remote.response.User
 import com.adstek.data.remote.response.VideoAdResponse
 import com.adstek.data.remote.response.WalletResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -81,6 +80,9 @@ interface AdsTekApi {
 
     @GET("auth/profile/")
     suspend fun getProfile():Response<ProfileUserResponse>
+
+    @PATCH("auth/profile/")
+    suspend fun updateProfile(@Body profileUpdateRequest: ProfileUpdateRequest):Response<ProfileUserResponse>
 
     @GET("admin/general/videolist/")
     suspend fun getVideosList(): Response<VideoAdResponse>

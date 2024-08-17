@@ -21,6 +21,7 @@ import com.adstek.extensions.toast
 import com.adstek.util.Constants
 import com.adstek.util.SharedPref
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -55,6 +56,7 @@ class SignInFragment : Fragment() {
         }){response ->
             sharedPref.setPref(Constants.KEY_IS_SIGNED_IN, true)
             response?.let {
+                Timber.tag("token").d(it.access)
                 sharedPref.setPref(Constants.KEY_ACCESS_TOKEN, it.access)
                 sharedPref.setPref(Constants.KEY_IS_EMAIL_VERIFIED, it.is_email_verified)
 
