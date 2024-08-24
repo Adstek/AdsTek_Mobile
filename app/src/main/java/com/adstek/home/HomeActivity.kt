@@ -15,7 +15,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedViewModel.fetchVideoListAndDownload()
+        sharedViewModel.fetchVideoListAndDownload(this)
         setContentView(R.layout.activity_home)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
