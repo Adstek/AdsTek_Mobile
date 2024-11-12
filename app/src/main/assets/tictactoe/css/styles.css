@@ -1,0 +1,176 @@
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --background: #1a1a2e;
+    --cell-size: 100px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--background);
+    color: white;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+.difficulty-selector {
+    margin: 20px 0;
+}
+
+.difficulty-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.difficulty-btn.active {
+    background: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.status {
+    font-size: 1.5em;
+    margin: 20px 0;
+    min-height: 50px;
+    animation: fadeIn 0.5s ease;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, var(--cell-size));
+    gap: 10px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.cell:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
+.cell.x::before,
+.cell.x::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 80px;
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+.cell.x::before {
+    transform: rotate(45deg);
+    animation: draw-x-1 0.3s ease forwards;
+}
+
+.cell.x::after {
+    transform: rotate(-45deg);
+    animation: draw-x-2 0.3s ease forwards;
+}
+
+.cell.o::before {
+    content: '';
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border: 10px solid var(--secondary-color);
+    border-radius: 50%;
+    animation: draw-o 0.3s ease forwards;
+}
+
+@keyframes draw-x-1 {
+    from { transform: rotate(45deg) scale(0); }
+    to { transform: rotate(45deg) scale(1); }
+}
+
+@keyframes draw-x-2 {
+    from { transform: rotate(-45deg) scale(0); }
+    to { transform: rotate(-45deg) scale(1); }
+}
+
+@keyframes draw-o {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.score {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px 0;
+    font-size: 1.2em;
+}
+
+.player-score {
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.player-score.active {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.reset-btn {
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.2em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.reset-btn:hover {
+    background: #d62f3d;
+    transform: translateY(-2px);
+}
+
+.winning-cell {
+    animation: winner-pulse 1s ease infinite;
+}
+
+@keyframes winner-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}

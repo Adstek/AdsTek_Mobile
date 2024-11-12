@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".home.ui.profile.ProfileFragment"
-    android:background="@color/white">
+    android:background="@color/yellow">
 
 
     <include
@@ -19,140 +19,131 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Personal Profile"
-        android:textColor="@color/black"
+        android:text="Driver's Profile"
+        android:textColor="@color/white"
+        android:textSize="34sp"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/back"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:padding="16dp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle"
-            app:layout_constraintBottom_toBottomOf="parent"
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilePic"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:src="@drawable/ic_user_account" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detailCard"
+            android:layout_width="360dp"
+            android:layout_height="260dp"
+            android:overScrollMode="always"
+            android:background="@drawable/background_rounded"
+            app:layout_constraintEnd_toEndOf="@id/profilePic"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="@id/profilePic"
+            app:layout_constraintTop_toBottomOf="@id/profilePic">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profilePic"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
-                android:layout_marginBottom="1dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/ic_user_account" />
-
-
-
-            <com.adstek.components.AdsTextField
-                android:id="@+id/firstName"
+            <TextView
+                android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
+                android:text="Name"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:hintText="Enter your first Name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profilePic"
-                app:titleTextInput = "First Name" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-            <com.adstek.components.AdsTextField
-                android:id="@+id/lastName"
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
-                app:hintText="Enter your last Name"
+                android:text="Leslie Annan"
+                app:hintText="Enter your first Name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/firstName"
-                app:titleTextInput = "Last Name" />
+                app:layout_constraintTop_toBottomOf="@id/tvName" />
 
 
-
-            <com.adstek.components.AdsTextField
-                android:id="@+id/email"
+            <TextView
+                android:id="@+id/tvCar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
-                app:hintText="Enter your Email Name"
+                android:text="Car Model"
+                app:hintText="Enter your first Name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lastName"
-                app:titleTextInput = "Email" />
+                app:layout_constraintTop_toBottomOf="@id/name" />
 
 
-            <com.adstek.components.AdsTextField
-                android:id="@+id/phone"
+            <TextView
+                android:id="@+id/car"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
-                app:hintText="Enter your Phone Number"
+                android:text="Toyota Yaris 2009"
+                app:hintText="Enter your first Name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email"
-                app:titleTextInput = "Phone Number" />
+                app:layout_constraintTop_toBottomOf="@id/tvCar" />
 
-            <com.adstek.components.AdsTextField
-                android:id="@+id/gender"
+
+            <TextView
+                android:id="@+id/tvMomoNumber"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
-                app:hintText="Enter your Gender Number"
+                android:text="Momo Number"
+                app:hintText="Enter your first Name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/phone"
-                app:titleTextInput = "Gender" />
+                app:layout_constraintTop_toBottomOf="@id/car" />
 
-            <com.adstek.components.AdsTextField
-                android:id="@+id/nationality"
+
+            <TextView
+                android:id="@+id/momoNumber"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
-                app:hintText="Enter your Gender Number"
+                android:text="0541715351"
+                app:hintText="Enter your first Name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/gender"
-                app:titleTextInput = "Nationality" />
+                app:layout_constraintTop_toBottomOf="@id/tvMomoNumber" />
 
-
-            <com.adstek.components.AdsTekButton
-                android:id="@+id/addMomoBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:layout_marginHorizontal="50dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nationality"
-                app:buttonText = "Proceed" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe vs AI</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="game-title">
+            <span>T</span><span>i</span><span>c</span>
+            <span>T</span><span>a</span><span>c</span>
+            <span>T</span><span>o</span><span>e</span>
+            <br>
+            <span>v</span><span>s</span>
+            <span>A</span><span>I</span>
+        </h1>
+        <div class="difficulty-selector">
+            <button class="difficulty-btn active" data-difficulty="easy">Easy</button>
+            <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+            <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+        </div>
+        <div class="score">
+            <div class="player-score active" id="player-score">
+                Player: <span>0</span>
+            </div>
+            <div class="player-score" id="ai-score">
+                AI: <span>0</span>
+            </div>
+        </div>
+        <div class="status" id="status">Your turn</div>
+        <div class="board" id="board">
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+            <div class="cell" data-cell></div>
+        </div>
+        <button class="reset-btn" id="reset">New Game</button>
+    </div>
+    <script src="js/script.js"></script>
+    <script>
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            if (window.Android) {
+                window.Android.logError(
+                    JSON.stringify({
+                        message: msg,
+                        url: url,
+                        line: lineNo,
+                        column: columnNo,
+                        error: error.toString()
+                    })
+                );
+            }
+            return false;
+        };
+    </script>
+</body>
+</html>

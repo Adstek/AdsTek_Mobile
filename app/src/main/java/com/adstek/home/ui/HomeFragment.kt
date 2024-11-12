@@ -25,11 +25,11 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
 
         binding.gamesLayout.setOnClickListener {
-            navigateTo(HomeFragmentDirections.navigateToTrivia())
+            navigateTo(HomeFragmentDirections.actionHomeFragment2ToGamesFragment())
         }
         binding.driverLayout.setOnClickListener {
             navigateTo(HomeFragmentDirections.actionHomeFragment2ToDriverProfileFragment())

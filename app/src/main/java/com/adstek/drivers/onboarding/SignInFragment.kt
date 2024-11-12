@@ -1,5 +1,6 @@
 package com.adstek.drivers.onboarding
 
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import com.adstek.drivers.onboarding.viewModel.OnBoardingViewModel
 import com.adstek.extensions.navigateTo
 import com.adstek.extensions.observeEventLiveData
 import com.adstek.extensions.toast
+import com.adstek.home.ui.ViewPagerModelActivity
 import com.adstek.util.Constants
 import com.adstek.util.SharedPref
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,10 +61,8 @@ class SignInFragment : Fragment() {
                 sharedPref.setPref(Constants.KEY_IS_EMAIL_VERIFIED, it.is_email_verified)
 
                 if (it.is_email_verified) {
-                    val navController = findNavController()
-                    val navGraph = navController.navInflater.inflate(R.navigation.home_navigation)
-                    navGraph.setStartDestination(R.id.homeFragment2)
-                    navController.graph = navGraph
+                    requireActivity().startActivity(Intent(this.requireActivity(), ViewPagerModelActivity::class.java))
+                    requireActivity().finish()
                     toast(getString(R.string.success_signin))
                 } else {
                     navigateTo(

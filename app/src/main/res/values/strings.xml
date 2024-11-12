@@ -58,6 +58,11 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string name="tic_desc">Tic-Tac-Toe is a simple two-player game where players take turns marking X or O in a 3x3 grid. The first to align three of their marks horizontally, vertically, or diagonally wins.</string>
+    <string name="memory_card_desc">In the Memory Card Game, players flip two cards at a time to find matching pairs.</string>
+    <string name="trivia_desc">Trivia is a game where players answer questions from various categories to test their knowledge. The player with the most correct answers wins.</string>
+
+
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

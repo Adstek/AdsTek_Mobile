@@ -54,12 +54,8 @@ class ProfileFragment : Fragment() {
 
     private fun populateData(profileUserResponse: ProfileUserResponse?) = with(binding){
         profileUserResponse?.let {data->
-            firstName.setFieldText(data.message.firstName)
-            lastName.setFieldText(data.message.lastName)
-            phone.setFieldText(data.message.phoneNumber)
-            nationality.setFieldText(data.message.nationality)
-            gender.setFieldText(data.message.gender)
-            email.setFieldText(data.message.email)
+            name.text = data.message.firstName + " " + data.message.lastName
+            momoNumber.text = data.message.phoneNumber
         }
     }
 }

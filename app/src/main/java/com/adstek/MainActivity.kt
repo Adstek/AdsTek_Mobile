@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.adstek.databinding.ActivityMainBinding
 import com.adstek.home.HomeActivity
+import com.adstek.home.ui.ViewPagerModelActivity
 import com.adstek.util.Constants
 import com.adstek.util.SharedPref
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +34,7 @@ import javax.inject.Inject
 
             if (sharedPref.getPref(Constants.KEY_IS_SIGNED_IN, false) && sharedPref.getPref(Constants.KEY_IS_EMAIL_VERIFIED, true)) {
                 // User is signed in, redirect to HomeActivity
-                startActivity(Intent(this, HomeActivity::class.java))
+                startActivity(Intent(this, ViewPagerModelActivity::class.java))
                 finish()
                 return
             }

@@ -98,7 +98,9 @@ class AdsActivity : AppCompatActivity() {
                 prepare()
                 addListener(playerListener)
             }
-        binding.playerView.player = player
+        val screenWidth = resources.displayMetrics.widthPixels
+        val screenHeight = (screenWidth * 9) / 16
+        binding.playerView.layoutParams.height = screenHeight
     }
 
     @androidx.annotation.OptIn(UnstableApi::class)
@@ -158,7 +160,6 @@ class AdsActivity : AppCompatActivity() {
                 val currentPosition = player.currentPosition
                 val remainingTime = totalDuration - currentPosition
                 val formattedTime = formatTime(remainingTime)
-                binding.tvTimer.text = formattedTime
                 handler.postDelayed(this, 1000)
             }
         })

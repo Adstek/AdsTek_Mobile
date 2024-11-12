@@ -20,16 +20,27 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".home.ui.ViewPagerModelActivity"
+            android:exported="false"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"/>
+        <activity
             android:name=".home.AdsActivity"
             android:exported="false"
             android:label="@string/title_activity_ads"
-            android:theme="@style/Theme.AdsTek" />
+            android:theme="@style/Theme.AdsTek"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".home.HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

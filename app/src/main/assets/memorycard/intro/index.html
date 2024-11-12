@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Match Game</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!-- Intro Animation Screen -->
+<div class="intro-animation" id="introAnimation">
+    <div class="particles" id="particles"></div>
+    <div class="countdown" id="countdown">3</div>
+
+    <div class="intro-content">
+        <div class="intro-left">
+            <div class="intro-header">
+                <div class="intro-emoji">🎮</div>
+                <h1 class="intro-title">Memory Master</h1>
+                <p class="intro-subtitle">Challenge Your Brain & Beat the Clock!</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-emoji">⏱️</div>
+                    <div class="feature-text">60 Seconds Challenge</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-emoji">🎯</div>
+                    <div class="feature-text">Match & Score</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-emoji">🏆</div>
+                    <div class="feature-text">Become a Champion</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro-right">
+            <div class="demo-grid">
+                <div class="demo-card">🎮</div>
+                <div class="demo-card">🎲</div>
+                <div class="demo-card">🎯</div>
+                <div class="demo-card">🎨</div>
+            </div>
+            <button class="start-game-btn" onclick="handlePlayNowClick()">Play Now!</button>
+        </div>
+    </div>
+</div>
+
+<!-- Main Game Container -->
+<div class="game-container" style="display: none;">
+    <h1 class="title">Memory Match</h1>
+    <div class="stats">
+        <div>⏰ Time: <span id="timer">60</span>s</div>
+        <div>🏆 Score: <span id="score">0</span></div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <button onclick="startGame()" class="start-btn">New Game</button>
+</div>
+
+<!-- Score Popup -->
+<div class="score-popup" id="scorePopup">
+    <div class="score-popup-content">
+        <div class="score-particles"></div>
+        <div class="score-value">+10</div>
+        <div class="score-text">Perfect Match!</div>
+    </div>
+</div>
+
+<!-- Failed Match Popup -->
+<div class="score-popup" id="failPopup">
+    <div class="score-popup-content fail">
+        <div class="score-text">Try to find a match!</div>
+    </div>
+</div>
+
+<!-- Game Over Screen -->
+<div class="game-over" id="gameOver">
+    <div class="game-over-content">
+        <div class="confetti-container" id="confetti"></div>
+        <div class="game-over-header">
+            <div class="emoji" id="resultEmoji"></div>
+            <h2 class="game-over-title">Game Over!</h2>
+        </div>
+        <div class="score-details">
+            <div class="final-score">
+                <span id="finalScore">0</span>
+                <span class="final-score-label">points</span>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="matchesFound">0</div>
+                    <div class="stat-label">Matches Found</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="timeRemaining">0s</div>
+                    <div class="stat-label">Time Left</div>
+                </div>
+            </div>
+            <div class="achievement" id="gameOverMessage"></div>
+        </div>
+        <button onclick="startGame()" class="play-again-btn">Play Again</button>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script>
+    // Android Interface Check
+    function isAndroidInterface() {
+        return typeof Android !== 'undefined' && Android !== null;
+    }
+
+    // Handle Play Now button click
+    function handlePlayNowClick() {
+        try {
+            // First, notify Android if interface exists
+            if (isAndroidInterface()) {
+                Android.onPlayButtonClicked();
+            }
+
+            // Then start the game countdown
+            startGameWithCountdown();
+        } catch (error) {
+            console.error('Error in handlePlayNowClick:', error);
+            if (isAndroidInterface()) {
+                Android.onError('Error in handlePlayNowClick: ' + error.toString());
+            }
+        }
+    }
+
+    // Create floating particles
+    function createParticles() {
+        const particles = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particles.appendChild(particle);
+        }
+    }
+
+    function startGameWithCountdown() {
+        try {
+            const countdown = document.getElementById('countdown');
+            let count = 3;
+
+            // Hide intro content
+            document.querySelector('.intro-content').style.opacity = '0';
+
+            // Notify Android countdown started
+            if (isAndroidInterface()) {
+                Android.onCountdownStarted(count);
+            }
+
+            // Start countdown
+            countdown.textContent = count;
+            countdown.classList.add('active');
+
+            const countInterval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    // Update countdown
+                    countdown.textContent = count;
+                    countdown.classList.remove('active');
+                    void countdown.offsetWidth; // Trigger reflow
+                    countdown.classList.add('active');
+
+                    // Notify Android of countdown progress
+                    if (isAndroidInterface()) {
+                        Android.onCountdownUpdate(count);
+                    }
+                } else {
+                    clearInterval(countInterval);
+                    hideIntroAnimation();
+                    document.querySelector('.game-container').style.display = 'block';
+
+                    // Notify Android countdown complete
+                    if (isAndroidInterface()) {
+                        Android.onCountdownComplete();
+                    }
+
+                    startGame();
+                }
+            }, 1000);
+        } catch (error) {
+            console.error('Error in startGameWithCountdown:', error);
+            if (isAndroidInterface()) {
+                Android.onError('Error in startGameWithCountdown: ' + error.toString());
+            }
+        }
+    }
+
+    function hideIntroAnimation() {
+        try {
+            const intro = document.getElementById('introAnimation');
+            intro.style.opacity = '0';
+            intro.style.transition = 'opacity 0.5s ease-out';
+            setTimeout(() => {
+                intro.style.display = 'none';
+                // Notify Android intro animation is hidden
+                if (isAndroidInterface()) {
+                    Android.onIntroHidden();
+                }
+            }, 500);
+        } catch (error) {
+            console.error('Error in hideIntroAnimation:', error);
+            if (isAndroidInterface()) {
+                Android.onError('Error in hideIntroAnimation: ' + error.toString());
+            }
+        }
+    }
+
+    // Game status updates for Android
+    function notifyGameStatus(status, data = {}) {
+        if (isAndroidInterface()) {
+            Android.onGameStatus(JSON.stringify({
+                status: status,
+                data: data
+            }));
+        }
+    }
+
+    // Initialize particles on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        try {
+            createParticles();
+            // Notify Android that the game is ready
+            if (isAndroidInterface()) {
+                Android.onGameReady();
+            }
+        } catch (error) {
+            console.error('Error in initialization:', error);
+            if (isAndroidInterface()) {
+                Android.onError('Error in initialization: ' + error.toString());
+            }
+        }
+    });
+</script>
+<script src="js/script.js"></script>
+</body>
+</html>

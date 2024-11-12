@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Memory Match Game</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="title">Memory Match</h1>
+        <div class="stats">
+            <div>⏰ Time: <span id="timer">60</span>s</div>
+            <div>🏆 Score: <span id="score">0</span></div>
+        </div>
+        <div class="grid" id="grid"></div>
+        <button onclick="startGame()" class="start-btn">New Game</button>
+    </div>
+
+    <!-- Score Popup -->
+    <div class="score-popup" id="scorePopup">
+        <div class="score-popup-content">
+            <div class="score-particles"></div>
+            <div class="score-value">+10</div>
+            <div class="score-text">Perfect Match!</div>
+        </div>
+    </div>
+
+    <!-- Failed Match Popup -->
+    <div class="score-popup" id="failPopup">
+        <div class="score-popup-content fail">
+            <div class="score-text">Try to find a match!</div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div class="game-over" id="gameOver">
+        <div class="game-over-content">
+            <div class="confetti-container" id="confetti"></div>
+            <div class="game-over-header">
+                <div class="emoji" id="resultEmoji"></div>
+                <h2 class="game-over-title">Game Over!</h2>
+            </div>
+            <div class="score-details">
+                <div class="final-score">
+                    <span id="finalScore">0</span>
+                    <span class="final-score-label">points</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="matchesFound">0</div>
+                        <div class="stat-label">Matches Found</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="timeRemaining">0s</div>
+                        <div class="stat-label">Time Left</div>
+                    </div>
+                </div>
+                <div class="achievement" id="gameOverMessage"></div>
+            </div>
+            <button onclick="startGame()" class="play-again-btn">Play Again</button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
